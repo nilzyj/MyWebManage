@@ -1,0 +1,66 @@
+.input-type {
+    /*display: block;*/
+    width: 150px;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #555;
+    vertical-align: middle;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+}
+
+.input-type:focus {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6)
+}
+
+body{
+    width:100%;
+    height:100%;
+    font-family: 'Roboto Condensed', sans-serif;
+
+}
+
+
+h1,h2,h3 {
+    margin:0 0 35px 0;
+    font-family: 'Patua One', cursive;
+    text-transform: uppercase;
+    letter-spacing:1px;
+}
+
+p{
+    margin:0 0 25px;
+    font-size:18px;
+    line-height:1.6em;
+}
+a{
+    color:#26a5d3;
+}
+a:hover,a:focus{
+    text-decoration:none;
+    color:#26a5d3;
+}
+
+#contact{
+    background:#333333;
+    color:#f4f4f4;
+    padding-bottom:80px;
+}
+
+textarea.form-control{
+    height:100px;
+}
+.head {
+    background-color: #4a4a4a;
+}
