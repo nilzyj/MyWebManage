@@ -281,9 +281,8 @@ function populateStates(countryElementId, stateElementId) {
 }
 
 
-$(document).ready(function(){
-    // 开始写 jQuery 代码...
-    $("#commit").click(function() {
 
-    });
-});
+
+$(document).ready(function () {
+
+})

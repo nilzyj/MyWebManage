@@ -30,13 +30,13 @@ public class fillInInformationServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		String str = req.getParameter("data");
+		String str = req.getParameter("fillData");
 		JsonObject jsonObject = null;
 		String name = "";
 		String state = "";
 		if(!str.isEmpty()) {
 			jsonObject = new JsonParser().parse(str).getAsJsonObject();
-			name = jsonObject.get("name").toString();
+			name = jsonObject.get("name").getAsString();
 		}
 
 		System.out.print(str);
@@ -50,8 +50,8 @@ public class fillInInformationServlet extends HttpServlet {
 			String url = "jdbc:mysql://localhost/mydb";
 			con = DriverManager.getConnection(url,"root","root");
 			sm = con.createStatement();
-			sm.executeUpdate("UPDATE stu_account SET stu_info = '" + jsonObject + "' WHERE stu_name ="
-					+ name);
+			sm.executeUpdate("UPDATE stu_account SET stu_info = '" + jsonObject + "' WHERE stu_name ='"
+					+ name +"'");
 			state = "success";
 		}
 		catch(Exception e) {

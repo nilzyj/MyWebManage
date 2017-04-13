@@ -8,8 +8,18 @@
     <script src="js/jquery-3.1.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/my_js.js"></script>
+    <script
+            $(document).ready(function() {
+            // 开始写 jQuery 代码...
+                $("#commit").click(function() {
+                    if(<% =loginState %> === "wrong") {
+                        alert("用户名或密码错误");
+                    }
+                });
+            });
+    <script/>
 </head>
-</head>e
+</head>
 <% String loginState = (String) session.getAttribute("loginState"); %>
 <body>
 <div class="container">
@@ -55,7 +65,6 @@
         </div>
     </div>
 </div>
-
 
 
 </body>

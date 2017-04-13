@@ -45,13 +45,13 @@ public class ManageLoginServlet extends HttpServlet {
 				}
 				else
 				{
-					response.sendRedirect("index.jsp");//密码错误
+					response.sendRedirect("login.jsp");//密码错误
 					session.setAttribute("state", "wrong");
 				}
 			}
 			else
 			{
-				response.sendRedirect("index.jsp");//用户不存在
+				response.sendRedirect("login.jsp");//用户不存在
 			}
 		}
 		catch(Exception e) {
