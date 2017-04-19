@@ -23,12 +23,13 @@ public class ManageLoginServlet extends HttpServlet {
 	}
 
 	//管理登录
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		String name = request.getParameter("username");
-		String password = request.getParameter("pwd");
+		String name = req.getParameter("name");
+		req.setCharacterEncoding("UTF-8");
+		String password = req.getParameter("password");
 
-		HttpSession session = request.getSession();
+		HttpSession session = req.getSession();
 		Connection con = null;
 		Statement sm = null;
 		ResultSet rs = null;
@@ -41,17 +42,17 @@ public class ManageLoginServlet extends HttpServlet {
 			if(rs.next()) {
 				if(rs.getString("manage_password").equals(password))
 				{
-					response.sendRedirect("home.jsp");//密码正确
+					resp.sendRedirect("page/index.html");//密码正确
 				}
 				else
 				{
-					response.sendRedirect("login.jsp");//密码错误
-					session.setAttribute("state", "wrong");
+					resp.sendRedirect("test2.jsp");//密码错误
+//					session.setAttribute("state", "wrong");
 				}
 			}
 			else
 			{
-				response.sendRedirect("login.jsp");//用户不存在
+				resp.sendRedirect("test2.jsp");//用户不存在
 			}
 		}
 		catch(Exception e) {

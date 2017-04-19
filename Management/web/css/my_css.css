@@ -64,3 +64,58 @@ textarea.form-control{
 .head {
     background-color: #4a4a4a;
 }
+
+/*login*/
+
+body{
+    margin:0;
+    padding:0;
+    background:#fff;
+    font-family: 'Open Sans', sans-serif;
+}
+h1,h2,h3,h4,h5,h6{
+    margin:0;
+    font-family: 'Open Sans', sans-serif;
+}
+p{
+    margin:0;
+    letter-spacing:1px;
+}
+ul{
+    margin:0;
+    padding:0;
+}
+p,ul,ol{
+    font-size:14px;
+}
+
+.position_relative {
+    position: relative;
+}
+
+.inner_content {
+    padding: 1.2em 1em;
+}
+
+.inner_content_margin_top {
+    margin-top: 4em;
+}
+
+.registration.admin_agile {
+    padding: 0em 0;
+}
+
+.signin-form.profile.admin {
+    background: #f9fbfd;
+    padding: 2em 2em;
+    box-shadow: 0 0px 24px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);
+    -webkit-box-shadow: 0 0px 24px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);
+    -moz-box-shadow: 0 0px 24px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);
+    -o-box-shadow: 0 0px 24px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);
+    border: 1px solid #ddd;
+}
+
+.login-form {
+    margin: 1em 0 2.5em;
+}
+/*/login*/

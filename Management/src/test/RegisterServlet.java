@@ -15,20 +15,19 @@ import javax.servlet.http.HttpServletResponse;
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public void doGet(HttpServletRequest request, 
-			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doPost(request, response);
+	public void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		doPost(req, resp);
 		//		String text = request.getParameter("param");
 		//		
 		//		response.getWriter().println(text);
 	}
 
 	//android注册
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		String name = request.getParameter("username");
-		String password = request.getParameter("pwd");
+		String name = req.getParameter("username");
+		String password = req.getParameter("pwd");
 
 		Connection con = null;
 		Statement sm = null;
@@ -40,7 +39,7 @@ public class RegisterServlet extends HttpServlet {
 			sm = con.createStatement();
 			sm.executeUpdate("insert into stu_account (stu_name, stu_password) values"
 					+ "('" + name + "', '" + password + "')");
-			response.getWriter().print("success");
+			resp.getWriter().print("success");
 		}
 		catch(Exception e) {
 			e.printStackTrace();

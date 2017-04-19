@@ -24,6 +24,7 @@ public class GetInformationServlet extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name");
+        resp.setCharacterEncoding("UTF-8");
 
         Connection con = null;
         Statement sm = null;
@@ -33,7 +34,7 @@ public class GetInformationServlet extends HttpServlet{
             String url = "jdbc:mysql://localhost/mydb";
             con = DriverManager.getConnection(url,"root","root");
             sm = con.createStatement();
-            rs = sm.executeQuery("SELECT * FROM stu_account WHERE stu_name ='" + name + "'");
+            rs = sm.executeQuery("SELECT * FROM stu_all_info WHERE stu_name ='" + name + "'");
             if(rs.next()) {
                 resp.getWriter().write(rs.getString("stu_info"));
             }

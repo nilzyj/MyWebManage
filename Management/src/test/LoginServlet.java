@@ -1,6 +1,5 @@
 package test;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -9,7 +8,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,15 +25,13 @@ public class LoginServlet extends HttpServlet {
     }
 
     //android
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        String jsonData = request.getParameter("loginData");
+        String jsonData = req.getParameter("loginData");
+//        req.setCharacterEncoding("UTF-8");
         JsonObject jsonObject = new JsonParser().parse(jsonData).getAsJsonObject();
         String name = jsonObject.get("name").getAsString();
         String password = jsonObject.get("password").getAsString();
-
-        response.setContentType("text/html");
-        response.setCharacterEncoding("UTF-8");
 
         String state = "database error!";
         Connection con = null;
@@ -49,9 +45,16 @@ public class LoginServlet extends HttpServlet {
             rs = sm.executeQuery("select * from stu_account where stu_name='" + name + "'");
             if (rs.next()) {
                 if (rs.getString("stu_password").equals(password)) {
-                    state = "1";//密码正确
+                    rs = sm.executeQuery("SELECT * FROM stu_all_info WHERE stu_name='" + name + "'");
+                    if(rs.next()) {
+                        if (rs.getString("stu_info") == null) {
+                            state = "1";//密码正确，未填写信息
+                        } else {
+                            state = "2";//密码正确，填写了信息
+                        }
+                    }
                 } else {
-                    state = "2";//密码错误
+                    state = "3";//密码错误
                 }
             } else {
                 state = "0";//用户不存在
@@ -81,6 +84,6 @@ public class LoginServlet extends HttpServlet {
                 }
             }
         }
-        response.getWriter().print(state);
+        resp.getWriter().print(state);
     }
 }
