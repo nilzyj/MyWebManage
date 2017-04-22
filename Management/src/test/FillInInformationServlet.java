@@ -31,7 +31,7 @@ public class FillInInformationServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		String str = req.getParameter("fillData");
-		resp.setCharacterEncoding("UTF-8");
+		str = new String(str.getBytes("iso8859-1"), "UTF-8");
 		JsonObject jsonObject = null;
 		String name = "";
 		String state = "";
@@ -48,7 +48,7 @@ public class FillInInformationServlet extends HttpServlet {
 		ResultSet rs = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			String url = "jdbc:mysql://localhost/mydb";
+			String url = "jdbc:mysql://localhost/mydb?useUnicode=true&characterEncoding=utf-8&useSSL=false";
 			con = DriverManager.getConnection(url,"root","root");
 			sm = con.createStatement();
 			sm.executeUpdate("UPDATE stu_all_info SET stu_info = '" + jsonObject + "' WHERE stu_name ='"

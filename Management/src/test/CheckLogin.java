@@ -16,16 +16,16 @@
 //			if(rs.next()) {
 //				if(rs.getString("stu_password").equals(password))
 //				{
-//					return "1";//ÃÜÂëÕıÈ·
+//					return "1";//å¯†ç æ­£ç¡®
 //				}
 //				else
 //				{
-//					return "2";//ÃÜÂë´íÎó
+//					return "2";//å¯†ç é”™è¯¯
 //				}
 //			}
 //			else
 //			{
-//				return "0";//ÓÃ»§Ãû²»´æÔÚ
+//				return "0";//ç”¨æˆ·åä¸å­˜åœ¨
 //			}
 //		}
 //		catch(Exception e)
@@ -47,6 +47,6 @@
 //				try{con.close();}catch(Exception e){e.printStackTrace();}
 //			}
 //		}
-//		return "Á¬½ÓÊı¾İ¿â ´íÎó";
+//		return "è¿æ¥æ•°æ®åº“ é”™è¯¯";
 //	}
 //}

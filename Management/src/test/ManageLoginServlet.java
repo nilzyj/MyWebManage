@@ -26,7 +26,8 @@ public class ManageLoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		String name = req.getParameter("name");
-		req.setCharacterEncoding("UTF-8");
+		name = new String(name.getBytes("ISO8859-1"), "UTF-8");
+
 		String password = req.getParameter("password");
 
 		HttpSession session = req.getSession();
@@ -35,7 +36,7 @@ public class ManageLoginServlet extends HttpServlet {
 		ResultSet rs = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			String url = "jdbc:mysql://localhost/mydb";
+			String url = "jdbc:mysql://localhost/mydb?useUnicode=true&characterEncoding=utf-8&useSSL=false";
 			con = DriverManager.getConnection(url,"root","root");
 			sm = con.createStatement();
 			rs = sm.executeQuery("select * from manage_account where manage_name='"+name+"'");

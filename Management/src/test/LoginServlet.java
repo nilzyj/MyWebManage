@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -28,7 +29,8 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         String jsonData = req.getParameter("loginData");
-//        req.setCharacterEncoding("UTF-8");
+        jsonData = new String(jsonData.getBytes("ISO8859-1"), "UTF-8");
+
         JsonObject jsonObject = new JsonParser().parse(jsonData).getAsJsonObject();
         String name = jsonObject.get("name").getAsString();
         String password = jsonObject.get("password").getAsString();
@@ -39,7 +41,7 @@ public class LoginServlet extends HttpServlet {
         ResultSet rs = null;
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            String url = "jdbc:mysql://localhost/mydb";
+            String url = "jdbc:mysql://localhost/mydb?useUnicode=true&characterEncoding=utf-8&useSSL=false";
             con = DriverManager.getConnection(url, "root", "root");
             sm = con.createStatement();
             rs = sm.executeQuery("select * from stu_account where stu_name='" + name + "'");
@@ -50,7 +52,7 @@ public class LoginServlet extends HttpServlet {
                         if (rs.getString("stu_info") == null) {
                             state = "1";//密码正确，未填写信息
                         } else {
-                            state = "2";//密码正确，填写了信息
+                            state = "2";//密码正确，已填写信息
                         }
                     }
                 } else {
@@ -84,6 +86,10 @@ public class LoginServlet extends HttpServlet {
                 }
             }
         }
+        state = URLEncoder.encode(state, "UTF-8");
         resp.getWriter().print(state);
+//        resp.getWriter().print(URLEncoder.encode("中文", "UTF-8"));
+
+//        resp.getWriter().print(URLEncoder.encode(jsonData,"UTF-8"));
     }
 }

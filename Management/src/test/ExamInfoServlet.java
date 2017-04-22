@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -27,19 +28,21 @@ public class ExamInfoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name");
-        req.setCharacterEncoding("UTF-8");
+        name = new String(name.getBytes("ISO8859-1"), "UTF-8");
         Connection con = null;
         Statement sm = null;
         ResultSet rs = null;
 
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            String url = "jdbc:mysql://localhost/mydb";
+            String url = "jdbc:mysql://localhost/mydb?useUnicode=true&characterEncoding=utf-8&useSSL=false";
             con = DriverManager.getConnection(url,"root","root");
             sm = con.createStatement();
             rs = sm.executeQuery("SELECT * FROM stu_all_info WHERE stu_name ='" + name + "'");
             if(rs.next()) {
-                resp.getWriter().write(rs.getString("stu_exam_info"));
+                String state = rs.getString("stu_exam_info");
+                state = URLEncoder.encode(state, "UTF-8");
+                resp.getWriter().write(state);
             }
         }
         catch(Exception e) {

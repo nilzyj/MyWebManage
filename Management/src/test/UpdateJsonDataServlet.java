@@ -31,14 +31,18 @@ public class UpdateJsonDataServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		String str = req.getParameter("updateData");
-		req.setCharacterEncoding("UTF-8");
+		str = new String(str.getBytes("ISO8859-1"), "UTF-8");
+
 		JsonObject jsonObject = null;
 		String name = "";
+		String jsonKey = "";
+		String jsonValue = "";
 		if(!str.isEmpty()) {
 			jsonObject = new JsonParser().parse(str).getAsJsonObject();
 			name = jsonObject.get("name").getAsString();
+			jsonKey = jsonObject.get("infoName").getAsString();
+			jsonValue = jsonObject.get("info").getAsString();
 		}
-
 		System.out.print(str);
 		System.out.print(name);
 
@@ -47,15 +51,15 @@ public class UpdateJsonDataServlet extends HttpServlet {
 		ResultSet rs = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			String url = "jdbc:mysql://localhost/mydb";
+			String url = "jdbc:mysql://localhost/mydb?useUnicode=true&characterEncoding=utf-8&useSSL=false";
 			con = DriverManager.getConnection(url,"root","root");
 			sm = con.createStatement();
 			rs = sm.executeQuery("SELECT * FROM stu_all_info WHERE stu_name ='"
 					+ name +"'");
 			if(rs.next()) {
-//				sm.executeUpdate("SELECT JSON_REPLACE()rs.getString("stu_info"), '$.name', rs.getString("name") );
+			    sm.executeUpdate("UPDATE stu_all_info SET tags = " +
+						"JSON_REPLACE(stu_info, '$.' + jsonKey, jsonValue) WHERE stu_name = '" + name + "'");
 			}
-			sm.executeUpdate("");
 
 			resp.getWriter().write("");
 		}

@@ -28,13 +28,14 @@ public class RegisterServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String name = req.getParameter("username");
 		String password = req.getParameter("pwd");
+		name = new String(name.getBytes("ISO8859-1"), "UTF-8");
 
 		Connection con = null;
 		Statement sm = null;
 		ResultSet rs = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			String url = "jdbc:mysql://localhost/mydb";
+			String url = "jdbc:mysql://localhost/mydb?useUnicode=true&characterEncoding=utf-8&useSSL=false";
 			con = DriverManager.getConnection(url,"root","root");
 			sm = con.createStatement();
 			sm.executeUpdate("insert into stu_account (stu_name, stu_password) values"
