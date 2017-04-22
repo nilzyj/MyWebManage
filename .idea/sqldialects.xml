@@ -7,5 +7,6 @@
     <file url="file://$PROJECT_DIR$/Management/src/test/ManageLoginServlet.java" dialect="TSQL" />
     <file url="file://$PROJECT_DIR$/Management/src/test/RegisterServlet.java" dialect="TSQL" />
     <file url="file://$PROJECT_DIR$/Management/src/test/UpdateJsonDataServlet.java" dialect="TSQL" />
+    <file url="PROJECT" dialect="TSQL" />
   </component>
 </project>
