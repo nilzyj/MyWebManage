@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE HTML>
 <html>
@@ -10,8 +11,13 @@
     <title>首页</title>
   </head>
   <body>
-    <strong>首页</strong>
-
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-12">
+                <p class="lead">报名考生人数：<c:out value="${sessionScope.studentNumber}"/></p>
+            </div>
+        </div>
+    </div>
   <script type="text/javascript" src="js/jquery-3.1.1.js"></script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
   </body>

@@ -2,6 +2,8 @@
 <%@ page import="Util.DbUtil" %>
 <%@ page import="java.sql.*" %>
 <!DOCTYPE HTML>
+
+<%--delete--%>
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="css/my_css.css">

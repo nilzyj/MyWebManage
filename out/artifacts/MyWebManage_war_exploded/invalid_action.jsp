@@ -18,6 +18,8 @@
 <body>
 <div class="row clearfix">
     <div class="col-md-12 column">
+
+        添加记录、修改记录、删除记录、设置是否能参加考试
         <table id="table" class="table table-bordered table-hover table-condensed" style="margin-top: 2cm;">
             <thead>
             <tr>

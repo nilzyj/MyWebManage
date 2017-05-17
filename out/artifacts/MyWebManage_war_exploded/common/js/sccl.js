@@ -416,65 +416,23 @@ $(function () {
         "id": "1", "name": "主菜单", "parentId": "0", "url": "", "icon": "", "order": "1", "isHeader": "1", "childMenus": [
             {
                 "id": "2",
-                "name": "考试信息",
+                "name": "考生管理",
                 "parentId": "1",
-                "url": "",
+                "url": "GetStudentInfoServlet",
                 "icon": "&#xe604;",
                 "order": "1",
                 "isHeader": "0",
-                "childMenus": [
-                    {
-                        "id": "21",
-                        "name": "考试管理",
-                        "parentId": "2",
-                        "url": "manage_exam.jsp",
-                        "icon": "",
-                        "order": "1",
-                        "isHeader": "0",
-                        "childMenus": ""
-                    },
-                    {
-                        "id": "22",
-                        "name": "监考管理",
-                        "parentId": "2",
-                        "url": "manage_proctor.jsp",
-                        "icon": "",
-                        "order": "1",
-                        "isHeader": "0",
-                        "childMenus": ""
-                    }
-                ]
+                "childMenus": ""
             },
             {
                 "id": "3",
-                "name": "考生信息",
+                "name": "报考管理",
                 "parentId": "1",
-                "url": "",
+                "url": "manage_baokao.jsp",
                 "icon": "&#xe602;",
                 "order": "1",
                 "isHeader": "0",
-                "childMenus": [
-                    {
-                        "id": "31",
-                        "name": "考生信息",
-                        "parentId": "3",
-                        "url": "manage_stu_info.jsp",
-                        "icon": "",
-                        "order": "1",
-                        "isHeader": "0",
-                        "childMenus": ""
-                    },
-                    {
-                        "id": "32",
-                        "name": "无",
-                        "parentId": "3",
-                        "url": "",
-                        "icon": "",
-                        "order": "1",
-                        "isHeader": "0",
-                        "childMenus": ""
-                    }
-                ]
+                "childMenus": ""
             },
             {
                 "id": "4",
@@ -484,93 +442,20 @@ $(function () {
                 "icon": "&#xe602;",
                 "order": "1",
                 "isHeader": "0",
-                "childMenus": [
-                    {
-                        "id": "41",
-                        "name": "无",
-                        "parentId": "4",
-                        "url": "",
-                        "icon": "",
-                        "order": "1",
-                        "isHeader": "0",
-                        "childMenus": ""
-                    },
-                    {
-                        "id": "42",
-                        "name": "无",
-                        "parentId": "4",
-                        "url": "",
-                        "icon": "",
-                        "order": "1",
-                        "isHeader": "0",
-                        "childMenus": ""
-                    }
-                ]
+                "childMenus": ""
             },
             {
                 "id": "5",
-                "name": "违规行为",
+                "name": "违规管理",
                 "parentId": "1",
                 "url": "",
                 "icon": "&#xe602;",
                 "order": "1",
                 "isHeader": "0",
-                "childMenus": [
-                    {
-                        "id": "51",
-                        "name": "违规管理",
-                        "parentId": "5",
-                        "url": "invalid_action.jsp",
-                        "icon": "",
-                        "order": "1",
-                        "isHeader": "0",
-                        "childMenus": ""
-                    },
-                    {
-                        "id": "52",
-                        "name": "无",
-                        "parentId": "5",
-                        "url": "",
-                        "icon": "",
-                        "order": "1",
-                        "isHeader": "0",
-                        "childMenus": ""
-                    }
-                ]
+                "childMenus": ""
             },
             {
                 "id": "6",
-                "name": "考试成绩管理",
-                "parentId": "1",
-                "url": "",
-                "icon": "&#xe602;",
-                "order": "1",
-                "isHeader": "0",
-                "childMenus": [
-                    {
-                        "id": "61",
-                        "name": "成绩管理",
-                        "parentId": "6",
-                        "url": "manage_grade.jsp",
-                        "icon": "",
-                        "order": "1",
-                        "isHeader": "0",
-                        "childMenus": ""
-                    },
-                    {
-                        "id": "62",
-                        "name": "复试管理",
-                        "parentId": "6",
-                        "url": "manage_fushi.jsp",
-                        "icon": "",
-                        "order": "1",
-                        "isHeader": "0",
-                        "childMenus": ""
-                    }
-                ]
-            },
-            {
-                "id": "7",
                 "name": "帐号管理",
                 "parentId": "1",
                 "url": "",
@@ -593,16 +478,6 @@ $(function () {
                         "name": "修改密码",
                         "parentId": "7",
                         "url": "manage_modify_password.jsp",
-                        "icon": "",
-                        "order": "1",
-                        "isHeader": "0",
-                        "childMenus": ""
-                    },
-                    {
-                        "id": "73",
-                        "name": "退出登录",
-                        "parentId": "7",
-                        "url": "",
                         "icon": "",
                         "order": "1",
                         "isHeader": "0",
