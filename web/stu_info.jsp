@@ -3,7 +3,6 @@
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="Util.DbUtil" %>
 <%@ page import="com.google.gson.JsonObject" %>
-<%@ page import="jdk.nashorn.internal.parser.JSONParser" %>
 <%@ page import="com.google.gson.JsonParser" %>
 <%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.Map" %><%--
@@ -17,14 +16,18 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="./css/my_css.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/my_css.css">
 </head>
 <body>
-<div class="container">
+<div>
     <div class="row clearfix">
         <div class="col-md-12">
             <div style="margin-left: 3cm; margin-top: 3cm">
+                <div id="back" class="back btn btn-primary" href="javascript:;">
+                    <img src="image/back.png"><span class="lead">返回</span>
+                </div>
+                <table class="table table-bordered">
                 <%
                     Connection con = null;
                     Statement sm = null;
@@ -48,7 +51,11 @@
                             Iterator iterator = jsonObject.entrySet().iterator();
                             while (iterator.hasNext()) {
                                 Map.Entry entry = (Map.Entry) iterator.next();
-                                out.print("<p class='lead'>" + infos[i] + ":" + entry.getValue() + "</p><br/>");
+                                out.print("<tr>");
+                                out.print("<th><p class='lead'>" + infos[i] + "</th><td>"
+                                        + entry.getValue().toString().substring(1, entry.getValue().toString().length()-1)
+                                        + "</td></p>");
+                                out.print("</tr>");
                                 i++;
                             }
                         }
@@ -61,6 +68,7 @@
                         DbUtil.dbClose(con, sm, rs);
                     }
                 %>
+                </table>
             </div>
         </div>
     </div>

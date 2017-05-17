@@ -11,13 +11,15 @@ $(document).ready(function () {
     //根据不同条件查询
     $("#searchBtn").click(function () {
         //获取查询内容
+        var year = $("#searchYear").val();
         var name = $("#searchName").val();
         var baokaodian = $("#searchbaokaodian").val();
         var baokaohao = $("#searchbaokaohao").val();
         $.ajax({
             type: "post",
             url: "SearchStudentServlet",
-            data: "name=" + name
+            data: "year=" + year
+            + "&name=" + name
             + "&baokaodian=" + baokaodian
             + "&baokaohao=" + baokaohao,
             dataType: "text",
@@ -32,10 +34,16 @@ $(document).ready(function () {
     });
 
     $("#clearBtn").click(function () {
-        $("#searchName").attr("value", "");
-        $("#searchbaokaodian").attr(value, "");
-        $("#searchbaokaohao").attr(value, "");
+        $("#searchYear").val("");
+        $("#searchName").val("");
+        $("#searchbaokaodian").val("");
+        $("#searchbaokaohao").val("");
     });
+
+    $("#back").click(function () {
+        history.go(-1);
+    });
+
     // //exam修改点击函数
     // $("#exam_tbody").find("tr").mouseenter(function () {
     //

@@ -13,12 +13,11 @@
     <link rel="stylesheet" href="common/css/sccl.css">
     <link rel="stylesheet" type="text/css" href="common/skin/qingxin/skin.css" id="layout-skin"/>
 </head>
-<%
-    if (session.getAttribute("username") == null) {
-        response.sendRedirect("login.jsp");
-        session.setAttribute("error", "登录过期，请重新登录！");
-    }
-%>
+<c:if test="${empty sessionScope.username}">
+    <% response.sendRedirect("login.jsp");%>
+    <c:set var="error" scope="session" value="登录过期，请重新登录！"/>
+</c:if>
+
 <body>
 <div class="layout-admin">
     <header class="layout-header">

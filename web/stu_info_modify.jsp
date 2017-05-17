@@ -23,6 +23,9 @@
 <div class="container">
     <div class="row clearfix">
         <div class="col-md-12">
+            <div id="back" class="back btn btn-primary" href="javascript:;">
+                <img src="image/back.png"><span class="lead" >返回</span>
+            </div>
             <%
                 Connection con = null;
                 Statement sm = null;
@@ -46,7 +49,8 @@
                         Iterator iterator = jsonObject.entrySet().iterator();
                         while (iterator.hasNext()) {
                             Map.Entry entry = (Map.Entry) iterator.next();
-                            out.print("<p class='lead'>" + infos[i] + ":</p><input class='form-control' value='" + entry.getValue() + "'><br/>");
+                            out.print("<p class='lead'>" + infos[i] + ":</p><input class='form-control' value='"
+                                    + entry.getValue().toString().substring(1, entry.getValue().toString().length()-1) + "'><br/>");
                             i++;
                         }
                     }

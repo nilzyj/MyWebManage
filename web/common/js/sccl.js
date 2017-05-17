@@ -436,7 +436,7 @@ $(function () {
             },
             {
                 "id": "4",
-                "name": "指纹信息",
+                "name": "认证信息",
                 "parentId": "1",
                 "url": "",
                 "icon": "&#xe602;",
@@ -464,7 +464,7 @@ $(function () {
                 "isHeader": "0",
                 "childMenus": [
                     {
-                        "id": "71",
+                        "id": "61",
                         "name": "管理账户",
                         "parentId": "7",
                         "url": "manage_account.jsp",
@@ -474,7 +474,7 @@ $(function () {
                         "childMenus": ""
                     },
                     {
-                        "id": "72",
+                        "id": "62",
                         "name": "修改密码",
                         "parentId": "7",
                         "url": "manage_modify_password.jsp",

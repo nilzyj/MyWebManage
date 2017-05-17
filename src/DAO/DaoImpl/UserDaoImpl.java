@@ -13,13 +13,17 @@ import java.sql.Statement;
  */
 public class UserDaoImpl implements UserDAO {
     private Connection con = DbUtil.getConn();
+    private Statement sm = null;
+    private ResultSet rs = null;
 
+    /**
+     * @param user 用户bean
+     * @return 验证密码结果
+     * @throws Exception sqlexception
+     */
     @Override
     public boolean checkLogin(User user) throws Exception {
         boolean flag = false;
-        Statement sm = null;
-        ResultSet rs = null;
-
         sm = con.createStatement();
         rs = sm.executeQuery("select * from manage_account " +
                 "where manage_name='" + user.getName() + "'AND manage_password='" + user.getPassword() + "'");
@@ -30,8 +34,13 @@ public class UserDaoImpl implements UserDAO {
         return flag;
     }
 
+    /**
+     * @param user 修改后的user bean
+     * @return 修改是否成功
+     * @throws Exception sqlexception
+     */
     @Override
-    public String modifyPassword(User user) throws Exception {
-        return null;
+    public boolean modifyPassword(User user) throws Exception {
+        return false;
     }
 }

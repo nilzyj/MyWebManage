@@ -22,33 +22,91 @@ public class StudentDaoImpl implements StudentDAO {
     private ResultSet rs = null;
     private List<Student> list = new ArrayList<Student>();
 
+    /**
+     * 获取全部报考考生信息
+     * @return 全部考生信息，包括历年报考信息
+     * @throws Exception sqlexception
+     */
     @Override
     public List<Student> getStudentInfo() throws Exception {
         sm = con.createStatement();
         rs = sm.executeQuery("SELECT * FROM stu_all_info");
-        return studentToList(rs);
+        studentToList(rs);
+        return list;
     }
 
+    /**
+     * 修改学生信息
+     * @return 修改是否成功
+     * @throws Exception sqlexception
+     */
     @Override
     public boolean modifyStudent() throws Exception {
 
         return false;
     }
 
+    /**
+     * 删除考生信息
+     * @param studentId 获取的考生序号
+     * @return 删除是否成功
+     * @throws Exception sqlexception
+     */
     @Override
     public boolean deleteStudent(int studentId) throws Exception {
         return false;
     }
 
+    /**
+     * 考生信息查询
+     * @param strings 姓名、报考点、报考号
+     * @return studentToList(rs) 查询所有符合条件的list
+     * @throws Exception
+     */
     public List<Student> searchStudent(String[] strings) throws Exception {
-        System.out.println("strings:" + strings[0]);
+        System.out.println("searchStudent——strings:" + strings[0] + strings[1]);
         sm = con.createStatement();
-        rs = sm.executeQuery("SELECT * FROM stu_all_info WHERE stu_name='" + strings[0] + "'");
-//                + "' AND '" + "");
-        return studentToList(rs);
+        String sql = "select * from stu_all_info where 1=1";
+        if(!"".equals(strings[0])) {
+            sql = sql + " and stu_year='" + strings[0] + "'";
+        }
+        if(!"".equals(strings[1])) {
+            sql = sql + " and stu_name='" + strings[1] + "'";
+        }
+        if(!"".equals(strings[2])) {
+            sql = sql + " and stu_baokaodian='" + strings[2] + "'";
+        }
+        if(!"".equals(strings[3])) {
+            sql = sql + " and stu_baokaohao='" + strings[3] + "'";
+        }
+        rs = sm.executeQuery(sql);
+        studentToList(rs);
+        return list;
     }
 
-    private List<Student> studentToList(ResultSet rs) throws Exception {
+    /**
+     * @return 报考考生数量，
+     * @throws Exception sqlexception
+     */
+    // TODO 只获取当年报考考生数量
+    @Override
+    public int getNumber() throws Exception {
+        int number = 0;
+        sm = con.createStatement();
+        rs = sm.executeQuery("SELECT count(*) count FROM stu_all_info");
+        if(rs.next()) {
+            number = rs.getInt("count");
+        }
+        return number;
+    }
+
+    /**
+     * 将rs中符合条件的集合放入list
+     * @param rs resultset
+     * @return 符合条件的数据
+     * @throws Exception sqlexception
+     */
+    private void studentToList(ResultSet rs) throws Exception {
         while (rs.next()) {
             Student student = new Student();
             student.setID(rs.getInt("id_stu_all_info"));
@@ -59,23 +117,14 @@ public class StudentDaoImpl implements StudentDAO {
                         .getAsJsonObject());
             } else {
                 JsonObject jsonObject = new JsonObject();
-                jsonObject.addProperty("name", "zyj");
+                jsonObject.addProperty("name", "无");
                 student.setJsonInfo(jsonObject);
             }
+            student.setYear(rs.getInt("stu_year"));
+            student.setBaokaodian(rs.getString("stu_baokaodian"));
+            student.setBaokaohao(rs.getString("stu_baokaohao"));
             list.add(student);
-            System.out.println("list:" + list.get(0).getName());
         }
-        return list;
-    }
-
-    @Override
-    public int getNumber() throws Exception {
-        int number = 0;
-        sm = con.createStatement();
-        rs = sm.executeQuery("SELECT count(*) count FROM stu_all_info");
-        if(rs.next()) {
-            number = rs.getInt("count");
-        }
-        return number;
+        System.out.println("studentToList--放入list");
     }
 }

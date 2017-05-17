@@ -23,11 +23,13 @@ public class GetStudentInfoServlet extends HttpServlet {
         StudentDaoImpl studentDao = new StudentDaoImpl();
         HttpSession session = request.getSession();
         try {
+            System.out.println("GetStudentServlet");
             studentList = studentDao.getStudentInfo();
         } catch (Exception e) {
             e.printStackTrace();
         }
         session.setAttribute("list", studentList);
+//        request.getRequestDispatcher("manage_stu_info.jsp").forward(request, response);
         response.sendRedirect("manage_stu_info.jsp");
     }
 

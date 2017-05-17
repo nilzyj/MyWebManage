@@ -10,21 +10,20 @@
 <head>
     <title>Title</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="./css/my_css.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/my_css.css">
 </head>
 <body>
 <div class="container">
     <div class="row clearfix">
         <div class="col-md-12">
             报名系统当前状态：开启
-
         </div>
     </div>
 </div>
 
-<script type="text/javascript" src="./js/jquery-3.1.1.js"></script>
-<script type="text/javascript" src="./js/bootstrap.min.js"></script>
-<script type="text/javascript" src="./js/my_js.js"></script>
+<script type="text/javascript" src="js/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/my_js.js"></script>
 </body>
 </html>
