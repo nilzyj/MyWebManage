@@ -40,7 +40,17 @@ public class UserDaoImpl implements UserDAO {
      * @throws Exception sqlexception
      */
     @Override
-    public boolean modifyPassword(User user) throws Exception {
+    public boolean modifyPassword(User user, String newPassword) throws Exception {
         return false;
+    }
+
+    @Override
+    public void addUser(User user) throws Exception {
+
+    }
+
+    @Override
+    public void deleteUser(User user) throws Exception {
+
     }
 }

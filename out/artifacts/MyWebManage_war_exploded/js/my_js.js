@@ -44,6 +44,129 @@ $(document).ready(function () {
         history.go(-1);
     });
 
+    $("#systemOn").click(function () {
+        $.ajax({
+            type: "post",
+            url: "ManageBaokaoServlet",
+            data: "state=on",
+            dataType: "text",
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            beforeSend:function(xhr){
+                // alert(xhr);
+            },
+            success: function (result) {
+                location.reload();
+            }
+        })
+    });
+
+    $("#systemOff").click(function () {
+        $.ajax({
+            type: "post",
+            url: "ManageBaokaoServlet",
+            data: "state=off",
+            dataType: "text",
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            beforeSend:function(xhr){
+                // alert(xhr);
+            },
+            success: function (result) {
+                location.reload();
+            }
+        })
+    });
+
+    $("#invalid_action_add_submit").click(function () {
+        $.ajax({
+            type: "post",
+            url: "AddInvalidActionServlet",
+            data: "invalid_action_name=" + $("#invalid_action_name_add").val()
+            + "&invalid_action=" + $("#invalid_action_add").val(),
+            dataType: "text",
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            beforeSend:function(xhr){
+                // alert(xhr);
+            },
+            success: function (result) {
+                location.reload();
+            }
+        })
+    });
+
+    //违规行为修改按钮
+    $("#invalid_tbody").on('click', '.invalid_modify', function() {
+        var $this = $(this),
+            $tr = $($this.parents('tr')[0]),
+            $action = $($tr.find('td')[3]),
+            $if_can_exam = $($tr.find('td')[4]),
+            invalid_action = $action.text(),
+            invalid_if_can_exam = $if_can_exam.text();
+        $("#invalid_action").val(invalid_action);
+        $("#invalid_if_can_exam").val(invalid_if_can_exam);
+    });
+
+    //违规行为修改提交
+    $("#btnModifyInvalidAction").click(function () {
+        //获取模态框数据
+        var invalid_action = $("#invalid_action").val();
+        var invalid_if_can_exam = $("#invalid_if_can_exam").val();
+        $.ajax({
+            type: "post",
+            url: "ModifyInvalidActionInfoServlet",
+            data: "examName=" + examName + "&examAddr=" + examAddr + "&examTime=" + examTime,
+            dataType: "text",
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            beforeSend:function(xhr){
+                // alert(xhr);
+            },
+            success: function (result) {
+                location.reload();
+            }
+        })
+    });
+
+    //能否参加考试RdaioButton响应
+    $("#invalid_tbody").on('click', '.optionsRadios1', function() {
+        var $this = $(this),
+            $tr = $($this.parents('tr')[0]),
+            $invalid_action_id = $($tr.find('td')[0]),
+            optionsRadios = $invalid_action_id.text();
+
+        $.ajax({
+            type: "post",
+            url: "ModifyIfCanExamServlet",
+            data: "optionsRadios=" + optionsRadios + "&ifCan=yes",
+            dataType: "text",
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            beforeSend:function (xhr) {
+
+            },
+            success: function (result) {
+                location.reload();
+            }
+        })
+    });
+
+    $("#invalid_tbody").on('click', '.optionsRadios2', function() {
+        var $this = $(this),
+            $tr = $($this.parents('tr')[0]),
+            $invalid_action_id = $($tr.find('td')[0]),
+            optionsRadios = $invalid_action_id.text();
+        $.ajax({
+            type: "post",
+            url: "ModifyIfCanExamServlet",
+            data: "optionsRadios=" + optionsRadios + "&ifCan=no",
+            dataType: "text",
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            beforeSend:function (xhr) {
+
+            },
+            success: function (result) {
+                location.reload();
+            }
+        })
+    });
+
     // //exam修改点击函数
     // $("#exam_tbody").find("tr").mouseenter(function () {
     //

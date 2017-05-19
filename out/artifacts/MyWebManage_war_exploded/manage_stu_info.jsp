@@ -21,7 +21,7 @@
             <%--考生查询--%>
             <form class="form-inline navbar-left" style="margin-top: 10px">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="searchYear" placeholder="报考年份：2000">
+                    <input type="number" class="form-control" id="searchYear" placeholder="报考年份：2000">
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-control" id="searchName" placeholder="考生姓名：张三">

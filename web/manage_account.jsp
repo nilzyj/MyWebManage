@@ -23,7 +23,7 @@
             <tr>
                 <th>序号</th>
                 <th>管理员用户名</th>
-                <th>管理员信息</th>
+                <th>管理员密码</th>
                 <th>操作</th>
             </tr>
             </thead>
@@ -41,7 +41,7 @@
                         out.print("<tr>");
                         out.print("<td>" + rs.getString("idmanage_account") + "</td>");
                         out.print("<td>" + rs.getString("manage_name") + "</td>");
-                        out.print("<td>" + /*rs.getString("manage_info")*/"test " + "</td>");
+                        out.print("<td>" + /*rs.getString("manage_info")*/"******" + "</td>");
                         out.print("<td><a id='" + //pyu.getStringPinYin(rs.getString("exam_name")) +
                                 "' href='#modal-container-325223' role='button' class='btn' data-toggle='modal'>" +
                                 "修改</a></td>");

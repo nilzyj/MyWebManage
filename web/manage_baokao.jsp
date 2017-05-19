@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: dim
@@ -17,11 +18,12 @@
 <div class="container">
     <div class="row clearfix">
         <div class="col-md-12">
-            报名系统当前状态：开启
+            报名系统当前状态：<c:out value="${sessionScope.systemState}"/>
+            <button id="systemOn" class="btn btn-primary">开启</button>
+            <button id="systemOff" class="btn btn-primary">关闭</button>
         </div>
     </div>
 </div>
-
 <script type="text/javascript" src="js/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/my_js.js"></script>

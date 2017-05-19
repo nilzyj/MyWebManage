@@ -10,9 +10,7 @@ public class DbUtil {
     private static String dbPwd = "root";
 
     public static Connection getConn() {
-
         Connection conn = null;
-
         try {
             Class.forName(dbDriver);
         } catch (ClassNotFoundException e) {

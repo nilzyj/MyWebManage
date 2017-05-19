@@ -428,7 +428,7 @@ $(function () {
                 "id": "3",
                 "name": "报考管理",
                 "parentId": "1",
-                "url": "manage_baokao.jsp",
+                "url": "ManageBaokaoServlet",
                 "icon": "&#xe602;",
                 "order": "1",
                 "isHeader": "0",
@@ -448,7 +448,7 @@ $(function () {
                 "id": "5",
                 "name": "违规管理",
                 "parentId": "1",
-                "url": "",
+                "url": "GetInvalidActionServlet",
                 "icon": "&#xe602;",
                 "order": "1",
                 "isHeader": "0",
@@ -458,32 +458,11 @@ $(function () {
                 "id": "6",
                 "name": "帐号管理",
                 "parentId": "1",
-                "url": "",
+                "url": "GetManageAccountServlet",
                 "icon": "&#xe602;",
                 "order": "1",
                 "isHeader": "0",
-                "childMenus": [
-                    {
-                        "id": "61",
-                        "name": "管理账户",
-                        "parentId": "7",
-                        "url": "manage_account.jsp",
-                        "icon": "",
-                        "order": "1",
-                        "isHeader": "0",
-                        "childMenus": ""
-                    },
-                    {
-                        "id": "62",
-                        "name": "修改密码",
-                        "parentId": "7",
-                        "url": "manage_modify_password.jsp",
-                        "icon": "",
-                        "order": "1",
-                        "isHeader": "0",
-                        "childMenus": ""
-                    }
-                ]
+                "childMenus": ""
             }
         ]
     }
