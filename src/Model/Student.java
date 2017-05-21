@@ -13,6 +13,16 @@ public class Student {
     private String baokaodian;
     private String baokaohao;
 
+    public Student(int ID, String name, JsonObject jsonInfo, int year, String baokaodian,
+                   String baokaohao) {
+        this.ID = ID;
+        this.name = name;
+        this.jsonInfo = jsonInfo;
+        this.year = year;
+        this.baokaodian = baokaodian;
+        this.baokaohao = baokaohao;
+    }
+
     public int getYear() {
         return year;
     }

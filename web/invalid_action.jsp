@@ -22,17 +22,17 @@
         <form class="form-inline navbar-left" style="margin-top: 10px">
 
             <div class="form-group">
-                <input type="number" class="form-control" id="searchYear" placeholder="违规年份：2000">
+                <input type="number" class="form-control" id="searchInvalidYear" placeholder="违规时间：2000">
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" id="searchName" placeholder="违规考生姓名：张三">
+                <input type="text" class="form-control" id="searchInvalidName" placeholder="违规考生姓名：张三">
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" id="searchbaokaodian" placeholder="违规行为">
+                <input type="text" class="form-control" id="searchInvalidAction" placeholder="违规行为">
             </div>
-            <button id="searchBtn" type="button" class="btn btn-default btn-primary">查询</button>
-            <button id="clearBtn" type="button" class="btn btn-default btn-primary">清除</button>
-                <a href="#modal-container-invalid-add" class="btn btn-default btn-primary" data-toggle="modal">添加</a>
+            <button id="searchInvalidBtn" type="button" class="btn btn-default btn-primary">查询</button>
+            <button id="clearInvalidBtn" type="button" class="btn btn-default btn-primary">清除</button>
+            <a href="#modal-container-invalid-add" class="btn btn-default btn-primary" data-toggle="modal">添加</a>
             <c:out value="${sessionScope.searchResult}"/>
         </form>
 
@@ -73,10 +73,10 @@
                         </label>
                     </td>
 
-                    <%--<td><c:out value="${invalidAction.ifCanExam}"/> </td>--%>
-                    <%--<td><a role="button" class="btn">删除</a>--%>
+                        <%--<td><c:out value="${invalidAction.ifCanExam}"/> </td>--%>
+                        <%--<td><a role="button" class="btn">删除</a>--%>
                         <%--<a href="#modal-container-invalid-modify" role="button" class="btn invalid_modify"--%>
-                           <%--data-toggle="modal">修改</a>--%>
+                        <%--data-toggle="modal">修改</a>--%>
                     </td>
                 </tr>
             </c:forEach>
@@ -109,7 +109,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button id="invalid_action_add_submit" type="button" class="btn btn-primary" >确定</button>
+                        <button id="invalid_action_add_submit" type="button" class="btn btn-primary">确定</button>
                     </div>
                 </div>
             </div>
@@ -117,36 +117,36 @@
 
         <%--遮罩窗体，弹出的修改框--%>
         <%--<div class="modal fade" id="modal-container-invalid-modify" role="dialog" aria-labelledby="修改违规信息"--%>
-             <%--aria-hidden="true">--%>
-            <%--<div class="modal-dialog">--%>
-                <%--<div class="modal-content">--%>
-                    <%--<div class="modal-header">--%>
-                        <%--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>--%>
-                        <%--<h4 class="modal-title" id="invalid_title">--%>
-                            <%--考生违规信息修改--%>
-                        <%--</h4--%>
-                    <%--</div>--%>
-                    <%--<div class="modal-body">--%>
-                        <%--<form method="post" action="ModifyExamInfoServlet">--%>
-                            <%--<div class="form-group">--%>
-                                <%--<label for="invalid_action">违规行为</label>--%>
-                                <%--<input type="text" class="form-control" id="invalid_action" placeholder="违规行为">--%>
-                            <%--</div>--%>
-                            <%--<div class="form-group">--%>
-                                <%--<label for="invalid_if_can_exam">是否能参加考试</label>--%>
-                                <%--<input type="text" class="form-control" id="invalid_if_can_exam" placeholder="是/否">--%>
-                            <%--</div>--%>
-                            <%--&lt;%&ndash;<button type="submit" class="btn btn-default">Submit</button>&ndash;%&gt;--%>
-                        <%--</form>--%>
-                    <%--</div>--%>
-                    <%--<div class="modal-footer">--%>
-                        <%--<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>--%>
-                        <%--<button id="btnModifyInvalidAction" type="button" class="btn btn-primary" >确定</button>--%>
-                    <%--</div>--%>
+        <%--aria-hidden="true">--%>
+        <%--<div class="modal-dialog">--%>
+        <%--<div class="modal-content">--%>
+        <%--<div class="modal-header">--%>
+        <%--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>--%>
+        <%--<h4 class="modal-title" id="invalid_title">--%>
+        <%--考生违规信息修改--%>
+        <%--</h4--%>
+        <%--</div>--%>
+        <%--<div class="modal-body">--%>
+        <%--<form method="post" action="ModifyExamInfoServlet">--%>
+        <%--<div class="form-group">--%>
+        <%--<label for="invalid_action">违规行为</label>--%>
+        <%--<input type="text" class="form-control" id="invalid_action" placeholder="违规行为">--%>
+        <%--</div>--%>
+        <%--<div class="form-group">--%>
+        <%--<label for="invalid_if_can_exam">是否能参加考试</label>--%>
+        <%--<input type="text" class="form-control" id="invalid_if_can_exam" placeholder="是/否">--%>
+        <%--</div>--%>
+        <%--&lt;%&ndash;<button type="submit" class="btn btn-default">Submit</button>&ndash;%&gt;--%>
+        <%--</form>--%>
+        <%--</div>--%>
+        <%--<div class="modal-footer">--%>
+        <%--<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>--%>
+        <%--<button id="btnModifyInvalidAction" type="button" class="btn btn-primary" >确定</button>--%>
+        <%--</div>--%>
 
-                <%--</div>--%>
+        <%--</div>--%>
 
-            <%--</div>--%>
+        <%--</div>--%>
 
         <%--</div>--%>
     </div>

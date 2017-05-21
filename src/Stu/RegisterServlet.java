@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Calendar;
 
 @WebServlet(name = "RegisterServlet", urlPatterns = {"/RegisterServlet"})
 public class RegisterServlet extends HttpServlet {
@@ -28,6 +29,8 @@ public class RegisterServlet extends HttpServlet {
 		String password = req.getParameter("pwd");
 		name = new String(name.getBytes("ISO8859-1"), "UTF-8");
 
+        Calendar now = Calendar.getInstance();
+
 		Connection con = null;
 		Statement sm = null;
 		ResultSet rs = null;
@@ -36,6 +39,8 @@ public class RegisterServlet extends HttpServlet {
 			sm = con.createStatement();
 			sm.executeUpdate("insert into stu_account (stu_name, stu_password) values"
 					+ "('" + name + "', '" + password + "')");
+			sm.executeUpdate("insert into stu_all_info (stu_name, stu_year) values"
+                    + "('" + name + "', '" + now.get(Calendar.YEAR) + "')");
 			resp.getWriter().print("success");
 		}
 		catch(Exception e) {

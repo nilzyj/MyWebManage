@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.sql.Connection" %>
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.ResultSet" %>
@@ -16,8 +17,8 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/my_css.css">
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/my_css.css">
 </head>
 <body>
 <div>
@@ -27,47 +28,13 @@
                 <div id="back" class="back btn btn-primary" href="javascript:;">
                     <img src="image/back.png"><span class="lead">返回</span>
                 </div>
-                <table class="table table-bordered">
-                <%
-                    Connection con = null;
-                    Statement sm = null;
-                    ResultSet rs = null;
-                    JsonObject jsonObject = new JsonObject();
-                    String[] infos = {"姓名", "证件类型", "证件号码", "民族", "性别", "婚否", "现役军人", "政治面貌",
-                            "籍贯所在地", "出生地", "户口所在地", "户口所在地详细地址", "考生档案所在地", "考生档案所在单位地址",
-                            "考生档案所在单位邮政编码", "现在学习或工作单位", "学习与工作经历", "何时何地何原因受过何种奖励或处分",
-                            "考生作弊情况", "家庭主要成员", "考生通讯地址", "考生通讯地址邮政编码", "固定电话", "移动电话",
-                            "电子邮箱", "考生来源", "毕业学校", "毕业专业", "取得最后学历的学习形式", "最后学历", "毕业证书编号",
-                            "获得最后学历毕业年月", "注册学号", "最后学位", "学位证书编号", "报考单位", "报考专业", "考试方式",
-                            "专项计划", "报考类别", "定向就业单位所在地", "定向就业单位", "报考院系", "研究方向", "政治理论", "外国语",
-                            "业务课一", "业务课二", "备用信息一", "备用信息二"};
-                    try {
-                        con = DbUtil.getConn();
-                        sm = con.createStatement();
-                        rs = sm.executeQuery("SELECT * FROM stu_all_info");
-                        if (rs.next()) {
-                            int i = 0;
-                            jsonObject = new JsonParser().parse(rs.getString("stu_info")).getAsJsonObject();
-                            Iterator iterator = jsonObject.entrySet().iterator();
-                            while (iterator.hasNext()) {
-                                Map.Entry entry = (Map.Entry) iterator.next();
-                                out.print("<tr>");
-                                out.print("<th><p class='lead'>" + infos[i] + "</th><td>"
-                                        + entry.getValue().toString().substring(1, entry.getValue().toString().length()-1)
-                                        + "</td></p>");
-                                out.print("</tr>");
-                                i++;
-                            }
-                        }
-                        con.close();
-                        sm.close();
-                        rs.close();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    } finally {
-                        DbUtil.dbClose(con, sm, rs);
-                    }
-                %>
+                <table class="table table-bordered" style="width: 800px;">
+                    <c:forEach items="${sessionScope.studentInfoList}" var="studentInfo">
+                        <tr>
+                            <th><p class="lead"><c:out value="${studentInfo.infoName}"/></p></th>
+                            <td><c:out value="${studentInfo.info}"/></td>
+                        </tr>
+                    </c:forEach>
                 </table>
             </div>
         </div>

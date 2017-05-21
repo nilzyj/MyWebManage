@@ -20,7 +20,7 @@ public class StudentDaoImpl implements StudentDAO {
     private Connection con = DbUtil.getConn();
     private Statement sm = null;
     private ResultSet rs = null;
-    private List<Student> list = new ArrayList<Student>();
+    private List<Student> studentList = new ArrayList<Student>();
 
     /**
      * 获取全部报考考生信息
@@ -32,7 +32,7 @@ public class StudentDaoImpl implements StudentDAO {
         sm = con.createStatement();
         rs = sm.executeQuery("SELECT * FROM stu_all_info");
         studentToList(rs);
-        return list;
+        return studentList;
     }
 
     /**
@@ -81,14 +81,14 @@ public class StudentDaoImpl implements StudentDAO {
         }
         rs = sm.executeQuery(sql);
         studentToList(rs);
-        return list;
+        return studentList;
     }
 
     /**
      * @return 报考考生数量，
      * @throws Exception sqlexception
      */
-    // TODO 只获取当年报考考生数量
+    // TODO 只获取当前年报考考生数量
     @Override
     public int getNumber() throws Exception {
         int number = 0;
@@ -108,22 +108,19 @@ public class StudentDaoImpl implements StudentDAO {
      */
     private void studentToList(ResultSet rs) throws Exception {
         while (rs.next()) {
-            Student student = new Student();
-            student.setID(rs.getInt("id_stu_all_info"));
-            student.setName(rs.getString("stu_name"));
             if (rs.getString("stu_info") != null) {
-                student.setJsonInfo(new JsonParser()
-                        .parse(rs.getString("stu_info"))
-                        .getAsJsonObject());
-            } else {
-                JsonObject jsonObject = new JsonObject();
-                jsonObject.addProperty("name", "无");
-                student.setJsonInfo(jsonObject);
+                Student student = new Student(
+                        rs.getInt("id_stu_all_info"),
+                        rs.getString("stu_name"),
+                        new JsonParser()
+                                .parse(rs.getString("stu_info"))
+                                .getAsJsonObject(),
+                        rs.getInt("stu_year"),
+                        rs.getString("stu_baokaodian"),
+                        rs.getString("stu_baokaohao")
+                );
+                studentList.add(student);
             }
-            student.setYear(rs.getInt("stu_year"));
-            student.setBaokaodian(rs.getString("stu_baokaodian"));
-            student.setBaokaohao(rs.getString("stu_baokaohao"));
-            list.add(student);
         }
         System.out.println("studentToList--放入list");
     }

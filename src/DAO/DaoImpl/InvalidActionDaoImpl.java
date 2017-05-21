@@ -95,4 +95,38 @@ public class InvalidActionDaoImpl implements InvalidActionDAO {
                 + " SET invalid_action_if_baokao='" + if_baokao
                 + "' WHERE id_invalid_action_info='" + invalid_action_id + "'");
     }
+
+    @Override
+    public List<InvalidAction> searchInvalidAction(String[] strings) throws Exception {
+        System.out.println("searchInvalidAction——strings:" + strings[0] + strings[1]);
+        sm = con.createStatement();
+        String sql = "select * from invalid_action_info where 1=1";
+        if(!"".equals(strings[0])) {
+            sql = sql + " and invalid_year='" + strings[0] + "'";
+        }
+        if(!"".equals(strings[1])) {
+            sql = sql + " and invalid_stu_name='" + strings[1] + "'";
+        }
+        if(!"".equals(strings[2])) {
+            sql = sql + " and invalid_action like '%" + strings[2] + "%'";
+        }
+        rs = sm.executeQuery(sql);
+        invalidActionToList(rs);
+
+        return invalidActionList;
+    }
+
+    private void invalidActionToList(ResultSet rs) throws Exception{
+        while (rs.next()) {
+            InvalidAction invalidAction = new InvalidAction(
+                    rs.getInt("id_invalid_action_info"),
+                    rs.getString("invalid_stu_name"),
+                    rs.getString("invalid_action"),
+                    rs.getInt("invalid_year"),
+                    rs.getInt("invalid_action_if_baokao")
+            );
+            invalidActionList.add(invalidAction);
+        }
+
+    }
 }

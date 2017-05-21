@@ -28,7 +28,7 @@ public class GetStudentInfoServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        session.setAttribute("list", studentList);
+        session.setAttribute("studentList", studentList);
 //        request.getRequestDispatcher("manage_stu_info.jsp").forward(request, response);
         response.sendRedirect("manage_stu_info.jsp");
     }

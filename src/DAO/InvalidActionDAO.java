@@ -13,4 +13,5 @@ public interface InvalidActionDAO {
     public void addInvalidAction(String name, String action, int year) throws Exception;
     public void deleteInvalidAction() throws Exception;
     public void modifyIfCanExam(String invalid_action_id, String ifCan) throws Exception;
+    public List<InvalidAction> searchInvalidAction(String[] strings) throws Exception;
 }

@@ -8,13 +8,13 @@ $(document).ready(function () {
         window.location.href = "login.jsp";
     });
 
-    //根据不同条件查询
-    $("#searchBtn").click(function () {
+    //根据不同条件查询考生
+    $("#searchStuBtn").click(function () {
         //获取查询内容
-        var year = $("#searchYear").val();
-        var name = $("#searchName").val();
-        var baokaodian = $("#searchbaokaodian").val();
-        var baokaohao = $("#searchbaokaohao").val();
+        var year = $("#searchStuYear").val();
+        var name = $("#searchStuName").val();
+        var baokaodian = $("#searchBaokaodian").val();
+        var baokaohao = $("#searchBaokaohao").val();
         $.ajax({
             type: "post",
             url: "SearchStudentServlet",
@@ -33,17 +33,48 @@ $(document).ready(function () {
         })
     });
 
-    $("#clearBtn").click(function () {
-        $("#searchYear").val("");
-        $("#searchName").val("");
-        $("#searchbaokaodian").val("");
-        $("#searchbaokaohao").val("");
+    //根据不同条件查询违规考生
+    $("#searchInvalidBtn").click(function () {
+        //获取查询内容
+        var year = $("#searchInvalidYear").val();
+        var name = $("#searchInvalidName").val();
+        var invalidAction = $("#searchInvalidAction").val();
+        $.ajax({
+            type: "post",
+            url: "SearchInvalidActionServlet",
+            data: "year=" + year
+            + "&name=" + name
+            + "&invalidAction=" + invalidAction,
+            dataType: "text",
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            beforeSend:function(xhr){
+                // alert(xhr);
+            },
+            success: function (result) {
+                location.reload();
+            }
+        })
     });
 
+    $("#clearInvalidBtn").click(function () {
+        $("#searchInvalidYear").val("");
+        $("#searchInvalidName").val("");
+        $("#searchAction").val("");
+    });
+
+    $("#clearStuBtn").click(function () {
+        $("#searchStuYear").val("");
+        $("#searchStuName").val("");
+        $("#searchBaokaodian").val("");
+        $("#searchBaokaohao").val("");
+    });
+
+    //考生信息查看和修改界面返回按钮
     $("#back").click(function () {
         history.go(-1);
     });
 
+    //开启报考系统
     $("#systemOn").click(function () {
         $.ajax({
             type: "post",
@@ -60,6 +91,7 @@ $(document).ready(function () {
         })
     });
 
+    //关闭报考系统
     $("#systemOff").click(function () {
         $.ajax({
             type: "post",
@@ -76,6 +108,7 @@ $(document).ready(function () {
         })
     });
 
+    //违规行为添加按钮
     $("#invalid_action_add_submit").click(function () {
         $.ajax({
             type: "post",
@@ -142,7 +175,7 @@ $(document).ready(function () {
 
             },
             success: function (result) {
-                location.reload();
+                // location.reload();
             }
         })
     });
@@ -156,6 +189,26 @@ $(document).ready(function () {
             type: "post",
             url: "ModifyIfCanExamServlet",
             data: "optionsRadios=" + optionsRadios + "&ifCan=no",
+            dataType: "text",
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            beforeSend:function (xhr) {
+
+            },
+            success: function (result) {
+                // location.reload();
+            }
+        })
+    });
+
+    $("#student_info_tbody").on('click', '.showStudentInfo', function() {
+        var $this = $(this),
+            $tr = $($this.parents('tr')[0]),
+            $id = $($tr.find('td')[0]),
+            student_info_id = $id.text();
+        $.ajax({
+            type: "post",
+            url: "ShowStudentInfoServlet",
+            data: "student_info_id=" + student_info_id,
             dataType: "text",
             contentType: "application/x-www-form-urlencoded; charset=utf-8",
             beforeSend:function (xhr) {
