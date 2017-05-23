@@ -46,6 +46,7 @@ public class InvalidActionDaoImpl implements InvalidActionDAO {
         sm = con.createStatement();
         rs = sm.executeQuery("SELECT * FROM invalid_action_info WHERE invalid_stu_name='"
                 + name + "'");
+        // TODO 增加查询条件并入身份证，避免重名
         if (rs.next())
             return false;
         else

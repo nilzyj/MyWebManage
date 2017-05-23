@@ -37,15 +37,17 @@ public class StudentInfoDaoImpl implements StudentInfoDAO {
         sm = con.createStatement();
         rs = sm.executeQuery("SELECT * FROM stu_all_info");
         if (rs.next()) {
-            JsonObject jsonObject = new JsonParser().parse(rs.getString("stu_info")).getAsJsonObject();
-            StudentInfo studentInfoName = new StudentInfo("姓名", jsonObject.get("name").getAsString());
-            studentInfoList.add(studentInfoName);
-            for (int i = 0; i < jsonObject.size()-1; i++) {
-                StudentInfo studentInfo = new StudentInfo(
-                        infos[i],
-                        jsonObject.get(pinYinUtil.getStringPinYin(infos[i])).getAsString()
-                );
-                studentInfoList.add(studentInfo);
+            if (rs.getString("stu_info") != null) {
+                JsonObject jsonObject = new JsonParser().parse(rs.getString("stu_info")).getAsJsonObject();
+                StudentInfo studentInfoName = new StudentInfo("姓名", jsonObject.get("name").getAsString());
+                studentInfoList.add(studentInfoName);
+                for (int i = 0; i < jsonObject.size()-1; i++) {
+                    StudentInfo studentInfo = new StudentInfo(
+                            infos[i],
+                            jsonObject.get(pinYinUtil.getStringPinYin(infos[i])).getAsString()
+                    );
+                    studentInfoList.add(studentInfo);
+                }
             }
         }
         return studentInfoList;

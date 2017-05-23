@@ -27,9 +27,9 @@ public class baokaohaoServlet extends HttpServlet {
         try {
             con = DbUtil.getConn();
             sm = con.createStatement();
-            rs = sm.executeQuery("SELECT * FROM stu_all_info ORDER BY idstu_all_info LIMIT 1");
+            rs = sm.executeQuery("SELECT * FROM stu_all_info ORDER BY id_stu_all_info LIMIT 1");
             if (rs.next()) {
-                String baokaohao = rs.getInt("idstu_all_info") + 1 + "";
+                String baokaohao = rs.getInt("id_stu_all_info") + 1 + "";
                 response.getWriter().print(baokaohao);
             }
         } catch (SQLException e) {

@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Calendar;
 
 @WebServlet(name = "FillInInformationServlet", urlPatterns = {"/FillInInformationServlet"})
 public class FillInInformationServlet extends HttpServlet {
@@ -43,6 +44,8 @@ public class FillInInformationServlet extends HttpServlet {
 		System.out.print(str);
 		System.out.print(name);
 
+		Calendar calendar = Calendar.getInstance();
+
 		Connection con = null;
 		Statement sm = null;
 		ResultSet rs = null;
@@ -50,10 +53,25 @@ public class FillInInformationServlet extends HttpServlet {
 			con = DbUtil.getConn();
 			sm = con.createStatement();
 			sm.executeUpdate("UPDATE stu_all_info SET stu_info = '" + jsonObject + "' WHERE stu_name ='"
-					+ name +"'");
+					+ name + "' AND stu_year='" + calendar.get(Calendar.YEAR) + "'");
 
+			rs = sm.executeQuery("SELECT * FROM stu_all_info ORDER BY id_stu_all_info LIMIT 1");
+			if (rs.next()) {
+				int id = rs.getInt("id_stu_all_info");
+				rs = sm.executeQuery("SELECT * FROM baokao WHERE baokaodian_name='哈工大'");
+
+				String baokaohao;
+				if (rs.next()) {
+					String number = String.valueOf(id + 1);
+					String temp = "0000";
+					number = temp.substring(0, 4 - number.length()) + number;
+					baokaohao = String.valueOf(rs.getInt("baokaodian_id")) + number;
+					sm.executeUpdate("UPDATE stu_all_info SET stu_baokaohao='" + baokaohao + "' WHERE stu_name='" +
+							name + "' AND stu_year='" + calendar.get(Calendar.YEAR) + "'");
+					state = baokaohao;
+				}
+			}
 			System.out.print(jsonObject);
-			state = "success";
 		}
 		catch(Exception e) {
 			e.printStackTrace();
