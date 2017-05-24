@@ -57,8 +57,9 @@
                         <td><c:out value="${info.name}"/></td>
                         <td><c:out value="${info.baokaodian}"/></td>
                         <td><c:out value="${info.baokaohao}"/> </td>
-                        <td><a href="stu_info.jsp" role='button' class='btn showStudentInfo' target="_self">查看</a>
-                            <a href="stu_info.jsp" role='button' class='btn'>修改</a></td>
+                        <%--<td><a href="stu_info.jsp" role='button' class='btn showStudentInfo' target="iframeundefined">查看</a>--%>
+                            <td><a href="javascript:;" role='button' class='btn showStudentInfo'>查看</a>
+                            <a href="stu_info_modify.jsp" role='button' class='btn'>修改</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>

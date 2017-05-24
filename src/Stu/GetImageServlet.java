@@ -14,29 +14,29 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * Created by dim on 2017/5/15.
+ * Created by dim on 2017/5/24.
  */
-@WebServlet(name = "baokaohaoServlet", urlPatterns = {"/baokaohaoServlet"})
-public class baokaohaoServlet extends HttpServlet {
+@WebServlet(name = "GetImageServlet", urlPatterns = {"/GetImageServlet"})
+public class GetImageServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String baokaodian = request.getParameter("baokaodian");
+        String name = request.getParameter("name");
+        name = new String(name.getBytes("ISO8859-1"), "UTF-8");
 
-        Connection con = null;
+        Connection con = DbUtil.getConn();
         Statement sm = null;
         ResultSet rs = null;
+
         try {
-            con = DbUtil.getConn();
             sm = con.createStatement();
-            rs = sm.executeQuery("SELECT * FROM stu_all_info ORDER BY id_stu_all_info DESC LIMIT 1");
+            rs = sm.executeQuery("SELECT * FROM stu_all_info WHERE stu_name ='" + name + "'");
             if (rs.next()) {
-                String baokaohao = rs.getInt("id_stu_all_info") + 1 + "";
-                response.getWriter().print(baokaohao);
+                String state = rs.getString("stu_photo");
+                System.out.println(state);
+                response.getWriter().print(state);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -201,10 +201,12 @@ $(document).ready(function () {
     });
 
     $("#student_info_tbody").on('click', '.showStudentInfo', function() {
+        alert("sd")
         var $this = $(this),
             $tr = $($this.parents('tr')[0]),
             $id = $($tr.find('td')[0]),
             student_info_id = $id.text();
+        alert(student_info_id)
         $.ajax({
             type: "post",
             url: "ShowStudentInfoServlet",

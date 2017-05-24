@@ -19,6 +19,7 @@ import java.util.List;
 public class ShowStudentInfoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("student_info_id");
+        System.out.println(id);
         List<StudentInfo> studentInfoList = new ArrayList<StudentInfo>();
         StudentInfoDaoImpl studentInfoDao = new StudentInfoDaoImpl();
         try {

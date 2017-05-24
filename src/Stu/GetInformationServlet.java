@@ -17,7 +17,7 @@ import java.sql.Statement;
  * Created by dim on 2017/4/11.
  */
 @WebServlet(name = "GetInformationServlet", urlPatterns = "/GetInformationServlet")
-public class GetInformationServlet extends HttpServlet{
+public class GetInformationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req, resp);
@@ -35,16 +35,19 @@ public class GetInformationServlet extends HttpServlet{
             con = DbUtil.getConn();
             sm = con.createStatement();
             rs = sm.executeQuery("SELECT * FROM stu_all_info WHERE stu_name ='" + name + "'");
-            if(rs.next()) {
-                String state = rs.getString("stu_info");
-                state = URLEncoder.encode(state, "UTF-8");
-                resp.getWriter().write(state);
+            if (rs.next()) {
+                if (rs.getString("stu_info") != null) {
+                    String state = rs.getString("stu_info");
+                    state = URLEncoder.encode(state, "UTF-8");
+                    resp.getWriter().print(state);
+                } else {
+                    resp.getWriter().print("未填写报考信息");
+                }
+
             }
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             DbUtil.dbClose(con, sm, rs);
         }
     }

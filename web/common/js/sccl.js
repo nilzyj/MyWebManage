@@ -438,7 +438,7 @@ $(function () {
                 "id": "4",
                 "name": "认证信息",
                 "parentId": "1",
-                "url": "",
+                "url": "manage_confirm.jsp",
                 "icon": "&#xe602;",
                 "order": "1",
                 "isHeader": "0",
