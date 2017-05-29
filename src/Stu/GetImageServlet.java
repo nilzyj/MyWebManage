@@ -18,25 +18,31 @@ import java.sql.Statement;
  */
 @WebServlet(name = "GetImageServlet", urlPatterns = {"/GetImageServlet"})
 public class GetImageServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String name = request.getParameter("name");
-        name = new String(name.getBytes("ISO8859-1"), "UTF-8");
-
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        System.out.println("**************Android获取图片**************");
+        String username = request.getParameter("username");
+        username = new String(username.getBytes("ISO8859-1"), "UTF-8");
+        String state = "";
         Connection con = DbUtil.getConn();
         Statement sm = null;
         ResultSet rs = null;
 
         try {
             sm = con.createStatement();
-            rs = sm.executeQuery("SELECT * FROM stu_all_info WHERE stu_name ='" + name + "'");
+            rs = sm.executeQuery("SELECT * FROM stu_all_info WHERE stu_username ='" + username + "'");
             if (rs.next()) {
-                String state = rs.getString("stu_photo");
+                state = rs.getString("stu_photo");
                 System.out.println(state);
-                response.getWriter().print(state);
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DbUtil.dbClose(con, sm, rs);
         }
+        response.getWriter().print(state);
+        System.out.println("**************Android获取图片**************");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -26,28 +26,32 @@ public class ModifyPasswordServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        System.out.println("**************Android修改密码**************");
         String modifyData = req.getParameter("modifyData");
         modifyData = new String(modifyData.getBytes("ISO8859-1"), "UTF-8");
         JsonObject jsonObject = new JsonParser().parse(modifyData).getAsJsonObject();
-        String name = jsonObject.get("name").getAsString();
+        String username = jsonObject.get("username").getAsString();
         String oldPassword = jsonObject.get("oldPassword").getAsString();
         String newPassword = jsonObject.get("newPassword").getAsString();
-        System.out.print(oldPassword + newPassword + name);
+        System.out.print(oldPassword + newPassword + username);
+        String state = "";
         Connection con = null;
         Statement sm = null;
         ResultSet rs = null;
         try {
             con = DbUtil.getConn();
             sm = con.createStatement();
-            rs = sm.executeQuery("SELECT * FROM stu_account WHERE stu_name = '" + name + "'");
+            rs = sm.executeQuery("SELECT * FROM stu_account WHERE stu_username = '" + username + "'");
             if (rs.next()) {
                 if (oldPassword.equals(rs.getString("stu_password"))) {
                     sm.executeUpdate("UPDATE stu_account SET stu_password = '" +
-                            newPassword + "' WHERE stu_name = '" + name + "'");
-                    resp.getWriter().print(URLEncoder.encode("1", "UTF-8"));//修改密码成功
+                            newPassword + "' WHERE stu_username = '" + username + "'");
+                    state = "1";//修改密码成功
+
                 } else {
-                    resp.getWriter().print(URLEncoder.encode("2", "UTF-8"));//密码错误
+                    state = "2";//密码错误
                 }
             }
         } catch (Exception e) {
@@ -55,5 +59,8 @@ public class ModifyPasswordServlet extends HttpServlet {
         } finally {
             DbUtil.dbClose(con, sm, rs);
         }
+        state = URLEncoder.encode(state, "UTF-8");
+        resp.getWriter().print(state);
+        System.out.println("**************Android修改密码**************");
     }
 }

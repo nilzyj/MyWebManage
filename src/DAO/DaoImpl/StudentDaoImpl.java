@@ -2,15 +2,19 @@ package DAO.DaoImpl;
 
 import DAO.StudentDAO;
 import Model.Student;
+import Model.StudentInfo;
 import Util.DbUtil;
+import Util.PinYinUtil;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.sun.org.apache.regexp.internal.RESyntaxException;
 
 import javax.swing.text.html.parser.Parser;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -24,6 +28,29 @@ public class StudentDaoImpl implements StudentDAO {
 
     /**
      * 获取全部报考考生信息
+     *
+     * @return 全部考生信息，包括历年报考信息
+     * @throws Exception sqlexception
+     */
+    @Override
+    public List<Student> getStudentInfo(String pageNum) throws Exception {
+//        LIMIT 5,10;  // 检索记录行 6-15
+        int page = Integer.parseInt(pageNum);
+        System.out.println("页" + page);
+        sm = con.createStatement();
+        if (page == 1) {
+            rs = sm.executeQuery("SELECT * FROM stu_all_info LIMIT 6");
+        } else {
+            rs = sm.executeQuery("SELECT * FROM stu_all_info LIMIT "
+                    + ((page - 1) * 6) + ", 6");
+        }
+        studentToList(rs);
+        return studentList;
+    }
+
+    /**
+     * 获取全部报考考生信息
+     *
      * @return 全部考生信息，包括历年报考信息
      * @throws Exception sqlexception
      */
@@ -37,6 +64,7 @@ public class StudentDaoImpl implements StudentDAO {
 
     /**
      * 修改学生信息
+     *
      * @return 修改是否成功
      * @throws Exception sqlexception
      */
@@ -48,6 +76,7 @@ public class StudentDaoImpl implements StudentDAO {
 
     /**
      * 删除考生信息
+     *
      * @param studentId 获取的考生序号
      * @return 删除是否成功
      * @throws Exception sqlexception
@@ -59,6 +88,7 @@ public class StudentDaoImpl implements StudentDAO {
 
     /**
      * 考生信息查询
+     *
      * @param strings 姓名、报考点、报考号
      * @return studentToList(rs) 查询所有符合条件的list
      * @throws Exception
@@ -67,17 +97,21 @@ public class StudentDaoImpl implements StudentDAO {
         System.out.println("searchStudent——strings:" + strings[0] + strings[1]);
         sm = con.createStatement();
         String sql = "select * from stu_all_info where 1=1";
-        if(!"".equals(strings[0])) {
+
+        if (!"".equals(strings[0])) {
             sql = sql + " and stu_year='" + strings[0] + "'";
         }
-        if(!"".equals(strings[1])) {
-            sql = sql + " and stu_name='" + strings[1] + "'";
+//        if(!"".equals(strings[1])) {
+//            sql = sql + " and stu_username'" + strings[1] + "'";
+//    }
+        if (!"".equals(strings[1])) {
+            sql = sql + " and stu_name like '%" + strings[1] + "%'";
         }
-        if(!"".equals(strings[2])) {
-            sql = sql + " and stu_baokaodian='" + strings[2] + "'";
+        if (!"".equals(strings[2])) {
+            sql = sql + " and stu_baokaodian like '%" + strings[2] + "%'";
         }
-        if(!"".equals(strings[3])) {
-            sql = sql + " and stu_baokaohao='" + strings[3] + "'";
+        if (!"".equals(strings[3])) {
+            sql = sql + " and stu_baokaohao like '%" + strings[3] + "%'";
         }
         rs = sm.executeQuery(sql);
         studentToList(rs);
@@ -92,9 +126,11 @@ public class StudentDaoImpl implements StudentDAO {
     @Override
     public int getNumber() throws Exception {
         int number = 0;
+        Calendar calendar = Calendar.getInstance();
         sm = con.createStatement();
-        rs = sm.executeQuery("SELECT count(*) count FROM stu_all_info");
-        if(rs.next()) {
+        rs = sm.executeQuery("SELECT count(*) count FROM stu_all_info WHERE stu_year='"
+                + calendar.get(Calendar.YEAR) + "'");
+        if (rs.next()) {
             number = rs.getInt("count");
         }
         return number;
@@ -102,26 +138,51 @@ public class StudentDaoImpl implements StudentDAO {
 
     /**
      * 将rs中符合条件的集合放入list
+     *
      * @param rs resultset
      * @return 符合条件的数据
      * @throws Exception sqlexception
      */
     private void studentToList(ResultSet rs) throws Exception {
         while (rs.next()) {
+
             if (rs.getString("stu_info") != null) {
+                int id_stu_all_info = rs.getInt("id_stu_all_info");
+                String stu_username = rs.getString("stu_username");
+                String stu_name = rs.getString("stu_name");
+                JsonObject stu_info;
+
+                stu_info = new JsonParser()
+                        .parse(rs.getString("stu_info"))
+                        .getAsJsonObject();
+
+                int stu_year = rs.getInt("stu_year");
+                String stu_baokaodian = rs.getString("stu_baokaodian");
+                if (stu_baokaodian == null)
+                    stu_baokaodian = "未报考";
+                int stu_baokaohao_num = rs.getInt("stu_baokaohao");
+                System.out.println(stu_baokaohao_num);
+                String stu_baokaohao;
+                if (stu_baokaohao_num == -1) {
+                    stu_baokaohao = "未报考";
+                } else {
+                    stu_baokaohao = String.valueOf(stu_baokaohao_num);
+                }
+
+
                 Student student = new Student(
-                        rs.getInt("id_stu_all_info"),
-                        rs.getString("stu_name"),
-                        new JsonParser()
-                                .parse(rs.getString("stu_info"))
-                                .getAsJsonObject(),
-                        rs.getInt("stu_year"),
-                        rs.getString("stu_baokaodian"),
-                        rs.getString("stu_baokaohao")
+                        id_stu_all_info,
+                        stu_username,
+                        stu_name,
+                        stu_info,
+                        stu_year,
+                        stu_baokaodian,
+                        stu_baokaohao
                 );
                 studentList.add(student);
             }
         }
+        DbUtil.dbClose(con, sm, rs);
         System.out.println("studentToList--放入list");
     }
 }

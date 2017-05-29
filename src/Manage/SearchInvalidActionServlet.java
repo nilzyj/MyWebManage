@@ -18,7 +18,9 @@ import java.util.List;
  */
 @WebServlet(name = "SearchInvalidActionServlet", urlPatterns = {"/SearchInvalidActionServlet"})
 public class SearchInvalidActionServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        System.out.println("**************网页查询违规行为**************");
         String year = request.getParameter("year");
         String name = request.getParameter("name");
         String invalidAction = request.getParameter("invalidAction");
@@ -57,7 +59,7 @@ public class SearchInvalidActionServlet extends HttpServlet {
 
         System.out.println("request");
         response.sendRedirect("invalid_action.jsp");
-
+        System.out.println("**************网页查询违规行为**************");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

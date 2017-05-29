@@ -9,8 +9,8 @@ import java.util.List;
  */
 public interface InvalidActionDAO {
     public List<InvalidAction> getInvalidAction() throws Exception;
-    public boolean getInvalidAction(String name) throws Exception;
-    public void addInvalidAction(String name, String action, int year) throws Exception;
+    public boolean getInvalidAction(String username) throws Exception;
+    public void addInvalidAction(String username, String name, String action, int year) throws Exception;
     public void deleteInvalidAction() throws Exception;
     public void modifyIfCanExam(String invalid_action_id, String ifCan) throws Exception;
     public List<InvalidAction> searchInvalidAction(String[] strings) throws Exception;

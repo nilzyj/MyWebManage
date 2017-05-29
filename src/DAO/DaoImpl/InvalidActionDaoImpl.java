@@ -42,15 +42,19 @@ public class InvalidActionDaoImpl implements InvalidActionDAO {
     }
 
     @Override
-    public boolean getInvalidAction(String name) throws Exception {
+    public boolean getInvalidAction(String username) throws Exception {
+        //true:能报考，false:不能报考
+        boolean isInvalid = true;
         sm = con.createStatement();
-        rs = sm.executeQuery("SELECT * FROM invalid_action_info WHERE invalid_stu_name='"
-                + name + "'");
-        // TODO 增加查询条件并入身份证，避免重名
-        if (rs.next())
-            return false;
-        else
-            return true;
+        rs = sm.executeQuery("SELECT * FROM invalid_action_info WHERE invalid_stu_username='"
+                + username + "'");
+        while (rs.next()) {
+            if (rs.getInt("invalid_action_if_baokao") == 0) {
+                isInvalid = false;
+            }
+        }
+        DbUtil.dbClose(con, sm, rs);
+        return isInvalid;
     }
 
     /**
@@ -58,11 +62,11 @@ public class InvalidActionDaoImpl implements InvalidActionDAO {
      * @throws Exception
      */
     @Override
-    public void addInvalidAction(String name, String action, int year) throws Exception {
+    public void addInvalidAction(String username, String name, String action, int year) throws Exception {
         sm = con.createStatement();
         sm.executeUpdate("INSERT INTO invalid_action_info " +
-                "(invalid_stu_name, invalid_action, invalid_year)" +
-                " VALUES ('" + name + "', '" + action + "', '" + year + "')");
+                "(invalid_stu_username, invalid_stu_name, invalid_action, invalid_year)" +
+                " VALUES ('" + username + "', '" + name + "', '" + action + "', '" + year + "')");
         System.out.println("invalid_action_insert");
         DbUtil.dbClose(con, sm, rs);
     }

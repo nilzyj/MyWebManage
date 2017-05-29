@@ -35,13 +35,15 @@ public class StudentInfoDaoImpl implements StudentInfoDAO {
     @Override
     public List<StudentInfo> getStudentInfo(String id) throws Exception {
         sm = con.createStatement();
-        rs = sm.executeQuery("SELECT * FROM stu_all_info");
+        rs = sm.executeQuery("SELECT * FROM stu_all_info WHERE id_stu_all_info='" +  id + "'");
         if (rs.next()) {
             if (rs.getString("stu_info") != null) {
                 JsonObject jsonObject = new JsonParser().parse(rs.getString("stu_info")).getAsJsonObject();
-                StudentInfo studentInfoName = new StudentInfo("姓名", jsonObject.get("name").getAsString());
+                StudentInfo studentInfoUsername = new StudentInfo("用户名", rs.getString("stu_username"));
+                studentInfoList.add(studentInfoUsername);
+                StudentInfo studentInfoName = new StudentInfo("姓名", rs.getString("stu_name"));
                 studentInfoList.add(studentInfoName);
-                for (int i = 0; i < jsonObject.size()-1; i++) {
+                for (int i = 0; i < jsonObject.size() - 1; i++) {
                     StudentInfo studentInfo = new StudentInfo(
                             infos[i],
                             jsonObject.get(pinYinUtil.getStringPinYin(infos[i])).getAsString()
@@ -50,6 +52,7 @@ public class StudentInfoDaoImpl implements StudentInfoDAO {
                 }
             }
         }
+        DbUtil.dbClose(con, sm, rs);
         return studentInfoList;
     }
 }

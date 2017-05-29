@@ -10,6 +10,7 @@ public class DbUtil {
     private static String dbPwd = "root";
 
     public static Connection getConn() {
+        System.out.println("连接数据库。。。");
         Connection conn = null;
         try {
             Class.forName(dbDriver);
@@ -18,7 +19,6 @@ public class DbUtil {
         }
         try {
             conn = DriverManager.getConnection(dbUrl, dbUser, dbPwd);
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -26,6 +26,7 @@ public class DbUtil {
     }
 
     public static void dbClose(Connection con, Statement sm, ResultSet rs) {
+        System.out.println("断开数据库。。。");
         if (rs != null) {
             try {
                 rs.close();

@@ -18,7 +18,9 @@ import java.util.List;
  */
 @WebServlet(name = "SearchStudentServlet", urlPatterns = {"/SearchStudentServlet"})
 public class SearchStudentServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        System.out.println("**************网页查询考生信息**************");
         String year = request.getParameter("year");
         String name = request.getParameter("name");
         String baokaodian = request.getParameter("baokaodian");
@@ -55,12 +57,8 @@ public class SearchStudentServlet extends HttpServlet {
                 e.printStackTrace();
             }
         }
-
-        System.out.println("request");
-//        request.getRequestDispatcher("manage_stu_info.jsp")
-//                .forward(request, response);
         response.sendRedirect("manage_stu_info.jsp");
-
+        System.out.println("**************网页查询考生信息**************");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

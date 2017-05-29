@@ -14,16 +14,10 @@ import java.io.IOException;
 
 @WebServlet(name = "ManageLoginServlet", urlPatterns = {"/ManageLoginServlet"})
 public class ManageLoginServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
-	public void doGet(HttpServletRequest request, 
-			HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
-	}
-
 	//管理登录
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		System.out.println("**************网页登录**************");
 		String name = req.getParameter("name");
 		name = new String(name.getBytes("ISO8859-1"), "UTF-8");
 		String password = req.getParameter("password");
@@ -54,5 +48,11 @@ public class ManageLoginServlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println("**************网页登录**************");
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doPost(request, response);
 	}
 }

@@ -36,6 +36,8 @@ public class PhotoServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        System.out.println("**************Android上传照片**************");
+        request.setCharacterEncoding("UTF-8");
         DiskFileItemFactory factory = new DiskFileItemFactory();
         ServletFileUpload upload = new ServletFileUpload(factory);
         UUID uuid = UUID.randomUUID();
@@ -48,13 +50,11 @@ public class PhotoServlet extends HttpServlet {
         try {
             List<FileItem> items = upload.parseRequest(request);
             FileItem fileItem = items.get(0);
-
+            System.out.println(fileName);
             sm = con.createStatement();
             sm.executeUpdate("UPDATE stu_all_info SET stu_photo='"
                     + fileName + "' WHERE stu_name='" + fileItem.getName() + "' AND stu_year='"
                     + calendar.get(Calendar.YEAR) + "'");
-
-            System.out.println(fileItem.getFieldName());
             fileItem.write(new File(filePath, fileName + ".jpg"));
             System.out.println("filePath:" + filePath + fileItem.getName() + ".jpg");
         } catch (FileUploadException e) {
@@ -64,6 +64,7 @@ public class PhotoServlet extends HttpServlet {
         } finally {
             DbUtil.dbClose(con, sm, rs);
         }
+        System.out.println("**************Android上传照片**************");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

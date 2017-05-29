@@ -7,20 +7,30 @@ import com.google.gson.JsonObject;
  */
 public class Student {
     private int ID;
+    private String username;
     private String name;
     private JsonObject jsonInfo;
     private int year;
     private String baokaodian;
     private String baokaohao;
 
-    public Student(int ID, String name, JsonObject jsonInfo, int year, String baokaodian,
+    public Student(int ID, String username, String name, JsonObject jsonInfo, int year, String baokaodian,
                    String baokaohao) {
         this.ID = ID;
+        this.username = username;
         this.name = name;
         this.jsonInfo = jsonInfo;
         this.year = year;
         this.baokaodian = baokaodian;
         this.baokaohao = baokaohao;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public int getYear() {

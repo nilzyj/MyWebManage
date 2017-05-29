@@ -19,14 +19,17 @@ import java.util.List;
  */
 @WebServlet(name = "AddInvalidActionServlet", urlPatterns = {"/AddInvalidActionServlet"})
 public class AddInvalidActionServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        System.out.println("**************网页添加违规信息**************");
         List<InvalidAction> invalidActionList = new ArrayList<InvalidAction>();
+        String invalid_action_username = request.getParameter("invalid_action_username");
         String invalid_action_name = request.getParameter("invalid_action_name");
         String invalid_action = request.getParameter("invalid_action");
         int invalid_action_year = Calendar.getInstance().get(Calendar.YEAR);
         InvalidActionDaoImpl invalidActionDao = new InvalidActionDaoImpl();
         try {
-            invalidActionDao.addInvalidAction(invalid_action_name, invalid_action,
+            invalidActionDao.addInvalidAction(invalid_action_username, invalid_action_name, invalid_action,
                     invalid_action_year);
              invalidActionDao = new InvalidActionDaoImpl();
             invalidActionList = invalidActionDao.getInvalidAction();
@@ -35,6 +38,7 @@ public class AddInvalidActionServlet extends HttpServlet {
         }
         request.getSession().setAttribute("invalidActionList", invalidActionList);
         response.sendRedirect("invalid_action.jsp");
+        System.out.println("**************网页添加违规信息**************");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

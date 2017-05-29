@@ -18,9 +18,19 @@
 <div class="container">
     <div class="row clearfix">
         <div class="col-md-12">
-            报名系统当前状态：<c:out value="${sessionScope.systemState}"/>
-            <button id="systemOn" class="btn btn-primary">开启</button>
-            <button id="systemOff" class="btn btn-primary">关闭</button>
+            <table class="table table-condense table-bordered" style="margin-top: 2cm;">
+                <tr>
+                    <th>报名考生人数：</th>
+                    <td>${sessionScope.studentNumber}</td>
+                </tr>
+                <tr>
+                    <th>报名系统当前状态：${sessionScope.systemState}</th>
+                    <td>
+                        <button id="systemOn" class="btn btn-success">开启</button>
+                        <button id="systemOff" class="btn btn-danger">关闭</button>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>

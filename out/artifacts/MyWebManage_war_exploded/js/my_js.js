@@ -24,11 +24,11 @@ $(document).ready(function () {
             + "&baokaohao=" + baokaohao,
             dataType: "text",
             contentType: "application/x-www-form-urlencoded; charset=utf-8",
-            beforeSend:function(xhr){
+            beforeSend: function (xhr) {
                 // alert(xhr);
             },
             success: function (result) {
-                location.reload();
+                $("body").html(result)
             }
         })
     });
@@ -47,11 +47,11 @@ $(document).ready(function () {
             + "&invalidAction=" + invalidAction,
             dataType: "text",
             contentType: "application/x-www-form-urlencoded; charset=utf-8",
-            beforeSend:function(xhr){
+            beforeSend: function (xhr) {
                 // alert(xhr);
             },
             success: function (result) {
-                location.reload();
+                $("body").html(result)
             }
         })
     });
@@ -82,11 +82,11 @@ $(document).ready(function () {
             data: "state=on",
             dataType: "text",
             contentType: "application/x-www-form-urlencoded; charset=utf-8",
-            beforeSend:function(xhr){
+            beforeSend: function (xhr) {
                 // alert(xhr);
             },
             success: function (result) {
-                location.reload();
+                $("body").html(result)
             }
         })
     });
@@ -99,11 +99,11 @@ $(document).ready(function () {
             data: "state=off",
             dataType: "text",
             contentType: "application/x-www-form-urlencoded; charset=utf-8",
-            beforeSend:function(xhr){
+            beforeSend: function (xhr) {
                 // alert(xhr);
             },
             success: function (result) {
-                location.reload();
+                $("body").html(result)
             }
         })
     });
@@ -117,17 +117,17 @@ $(document).ready(function () {
             + "&invalid_action=" + $("#invalid_action_add").val(),
             dataType: "text",
             contentType: "application/x-www-form-urlencoded; charset=utf-8",
-            beforeSend:function(xhr){
+            beforeSend: function (xhr) {
                 // alert(xhr);
             },
             success: function (result) {
-                location.reload();
+                $("body").html(result)
             }
         })
     });
 
     //违规行为修改按钮
-    $("#invalid_tbody").on('click', '.invalid_modify', function() {
+    $("#invalid_tbody").on('click', '.invalid_modify', function () {
         var $this = $(this),
             $tr = $($this.parents('tr')[0]),
             $action = $($tr.find('td')[3]),
@@ -149,17 +149,17 @@ $(document).ready(function () {
             data: "examName=" + examName + "&examAddr=" + examAddr + "&examTime=" + examTime,
             dataType: "text",
             contentType: "application/x-www-form-urlencoded; charset=utf-8",
-            beforeSend:function(xhr){
+            beforeSend: function (xhr) {
                 // alert(xhr);
             },
             success: function (result) {
-                location.reload();
+                $("body").html(result)
             }
         })
     });
 
     //能否参加考试RdaioButton响应
-    $("#invalid_tbody").on('click', '.optionsRadios1', function() {
+    $("#invalid_tbody").on('click', '.optionsRadios1', function () {
         var $this = $(this),
             $tr = $($this.parents('tr')[0]),
             $invalid_action_id = $($tr.find('td')[0]),
@@ -171,16 +171,16 @@ $(document).ready(function () {
             data: "optionsRadios=" + optionsRadios + "&ifCan=yes",
             dataType: "text",
             contentType: "application/x-www-form-urlencoded; charset=utf-8",
-            beforeSend:function (xhr) {
+            beforeSend: function (xhr) {
 
             },
             success: function (result) {
-                // location.reload();
+                $("body").html(result)
             }
         })
     });
 
-    $("#invalid_tbody").on('click', '.optionsRadios2', function() {
+    $("#invalid_tbody").on('click', '.optionsRadios2', function () {
         var $this = $(this),
             $tr = $($this.parents('tr')[0]),
             $invalid_action_id = $($tr.find('td')[0]),
@@ -191,109 +191,88 @@ $(document).ready(function () {
             data: "optionsRadios=" + optionsRadios + "&ifCan=no",
             dataType: "text",
             contentType: "application/x-www-form-urlencoded; charset=utf-8",
-            beforeSend:function (xhr) {
+            beforeSend: function (xhr) {
 
             },
             success: function (result) {
-                // location.reload();
+                $("body").html(result)
             }
         })
     });
 
-    $("#student_info_tbody").on('click', '.showStudentInfo', function() {
-        alert("sd")
+    $("#student_info_tbody").on('click', '.showStudentInfo', function () {
         var $this = $(this),
             $tr = $($this.parents('tr')[0]),
             $id = $($tr.find('td')[0]),
             student_info_id = $id.text();
-        alert(student_info_id)
         $.ajax({
             type: "post",
             url: "ShowStudentInfoServlet",
             data: "student_info_id=" + student_info_id,
             dataType: "text",
             contentType: "application/x-www-form-urlencoded; charset=utf-8",
-            beforeSend:function (xhr) {
-
-            },
             success: function (result) {
-                location.reload();
+                $(".modal-body").html(result)
+                $("#modal-container-stu-info").modal("show")
             }
         })
     });
 
-    // //exam修改点击函数
-    // $("#exam_tbody").find("tr").mouseenter(function () {
+    $("#student_info_tbody").on('click', '.modifyStudentInfo', function () {
+        var $this = $(this),
+            $tr = $($this.parents('tr')[0]),
+            $id = $($tr.find('td')[0]),
+            student_info_id = $id.text();
+        $.ajax({
+            type: "post",
+            url: "ModifyStudentInfoServlet",
+            data: "student_info_id=" + student_info_id,
+            dataType: "text",
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function (result) {
+                $(".modal-body").html(result)
+                $("#modal-container-stu-info").modal("show")
+            }
+        })
+    });
+    // $('#pagination').on('click', '[data-page]', function () {
+    //     var $this = $(this),
+    //         pageNum = $this.data('page'),
+    //         $tbody = $('#student_info_tbody'),
+    //         begin = parseInt(pageNum - 1) * 6;
+    //     $tbody.html("");
+    //     for (var index = begin; index < begin + 5 || index < NUMBER; index++) {
+    //         $tr = $('<tr />');
+    //         $('<td />').text(DATALIST[index].ID).appendTo($tr);
+    //         $('<td />').text(DATALIST[index].year).appendTo($tr);
+    //         $('<td />').text(DATALIST[index].name).appendTo($tr);
+    //         $('<td />').text(DATALIST[index].baokaodian).appendTo($tr);
+    //         $('<td />').text(DATALIST[index].baokaohao).appendTo($tr);
+    //         $('<td />').append($('<a />').attr({
+    //             'href': 'javascript:;',
+    //             'role': 'button',
+    //             'class': 'btn showStudentInfo'
+    //         }).text('查看')).appendTo($tr);
+    //         $tbody.append($tr);
+    //     }
     //
-    //     //获取表格中的一行数据
-    //     var row = this.rowIndex;
-    //     $("#exam_tbody").find("a").click(function () {
-    //         var title = document.getElementById("table").rows[row].cells[0].innerText;
-    //         var examTime = document.getElementById("table").rows[row].cells[1].innerText;
-    //         var examAddr = document.getElementById("table").rows[row].cells[2].innerText;
-    //         //向模态框中传值
-    //         $("#myModalLabel").text("考试信息修改：" + title);
-    //         $("#examTime").val(examTime);
-    //         $("#examAddr").val(examAddr);
-    //         $("#modal-container-325223").modal("show");
-    //     })
-    // });
     //
-    // //exam提交更改
-    // $("#updateExamInfo").click(function () {
-    //     //获取模态框数据
-    //     var examName = $("#myModalLabel").text().substr(7,2);
-    //     var examAddr = $("#examAddr").val();
-    //     var examTime = $("#examTime").val();
-    //     $.ajax({
-    //         type: "post",
-    //         url: "ModifyExamInfoServlet",
-    //         data: "examName=" + examName + "&examAddr=" + examAddr + "&examTime=" + examTime,
-    //         dataType: "text",
-    //         contentType: "application/x-www-form-urlencoded; charset=utf-8",
-    //         beforeSend:function(xhr){
-    //             // alert(xhr);
-    //         },
-    //         success: function (result) {
-    //             location.reload();
-    //         }
-    //     })
-    // });
-    //
-    // //proctor修改点击函数
-    // $("#proctor_tbody").find("tr").mouseenter(function () {
-    //     //获取表格中的一行数据
-    //     var row = this.rowIndex;
-    //     $("#proctor_tbody").find("a").click(function () {
-    //         var proctorName = document.getElementById("table").rows[row].cells[1].innerText;
-    //         var examInfo = document.getElementById("table").rows[row].cells[2].innerText;
-    //         //向模态框中传值
-    //         $("#proctorName").val(proctorName);
-    //         $("#examInfo").val(examInfo);
-    //         $("#modal-container-325224").modal("show");
-    //     })
-    // });
-    //
-    // //proctor修改提交
-    // $("#updateExamInfo").click(function () {
-    //     //获取模态框数据
-    //     var proctorName = $("#proctorName").val();
-    //     var examInfo = $("#examInfo").val();
-    //     $.ajax({
-    //         type: "post",
-    //         url: "ModifyProctorServlet",
-    //         data: "proctorName=" + proctorName + "&examInfo=" + examInfo,
-    //         dataType: "text",
-    //         contentType: "application/x-www-form-urlencoded; charset=utf-8",
-    //         beforeSend:function(xhr){
-    //             // alert(xhr);
-    //         },
-    //         success: function (result) {
-    //             location.reload();
-    //         }
-    //     })
-    // });
+    // })
 
+    $('#pagination').on('click', '[data-page]', function () {
+        var $this = $(this),
+            pageNum = $this.data('page');
+        $.ajax({
+            type: "post",
+            url: "GetStudentInfoServlet",
+            data: "pageNum=" + pageNum,
+            dataType: "text",
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function (result) {
+                $("body").html(result)
+            }
+        })
+    })
 });
 
 

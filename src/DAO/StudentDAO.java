@@ -1,6 +1,7 @@
 package DAO;
 
 import Model.Student;
+import Model.StudentInfo;
 
 import java.util.List;
 
@@ -8,6 +9,7 @@ import java.util.List;
  * Created by dim on 2017/5/16.
  */
 public interface StudentDAO {
+    public List<Student> getStudentInfo(String page) throws Exception;
     public List<Student> getStudentInfo() throws Exception;
     public boolean modifyStudent() throws Exception;
     public boolean deleteStudent(int studentId) throws Exception;

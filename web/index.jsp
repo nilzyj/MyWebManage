@@ -30,12 +30,10 @@
             <li class="header-bar-nav">
                 <a href="javascript:;"><c:out value="${sessionScope.username}"/><i class="icon-font" style="margin-left:5px;">&#xe60c;</i></a>
                 <ul class="header-dropdown-menu">
-                    <li><a href="javascript:;">个人信息</a></li>
-                    <li><a href="javascript:;">切换账户</a></li>
                     <li><a id="logoff" href="javascript:;">退出</a></li>
                 </ul>
             </li>
-            <li class="header-bar-role"><a href="javascript:;">管理</a></li>
+            <li class="header-bar-role"><a href="javascript:;">管理员</a></li>
         </ul>
     </header>
 

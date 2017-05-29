@@ -16,20 +16,10 @@ import java.sql.Statement;
 
 @WebServlet(name = "UpdateJsonDataServlet", urlPatterns = {"/UpdateJsonDataServlet"})
 public class UpdateJsonDataServlet extends HttpServlet {
-    /**
-     * 接收报考信息
-     */
-    private static final long serialVersionUID = 1L;
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
-        doPost(req, resp);
-    }
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        System.out.println("**************Android修改报考信息**************");
         String str = req.getParameter("updateData");
         str = new String(str.getBytes("ISO8859-1"), "UTF-8");
 
@@ -55,12 +45,18 @@ public class UpdateJsonDataServlet extends HttpServlet {
             sm.executeUpdate("UPDATE stu_all_info SET stu_info = " +
                     "JSON_REPLACE(stu_info, '$." + jsonKey + "','" + jsonValue + "')" +
                     "WHERE stu_name = '" + name + "'");
-
-            resp.getWriter().write("");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             DbUtil.dbClose(con, sm, rs);
         }
+        resp.getWriter().write("success");
+        System.out.println("**************Android修改报考信息**************");
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        doPost(req, resp);
     }
 }

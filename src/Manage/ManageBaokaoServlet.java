@@ -21,7 +21,9 @@ import java.util.List;
  */
 @WebServlet(name = "ManageBaokaoServlet", urlPatterns = {"/ManageBaokaoServlet"})
 public class ManageBaokaoServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        System.out.println("**************网页管理报考系统**************");
         String state = request.getParameter("state");
         BaokaoSystemDaoImpl baokaoSystemDao = new BaokaoSystemDaoImpl();
         try {
@@ -36,6 +38,7 @@ public class ManageBaokaoServlet extends HttpServlet {
             e.printStackTrace();
         }
         response.sendRedirect("manage_baokao.jsp");
+        System.out.println("**************网页管理报考系统**************");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

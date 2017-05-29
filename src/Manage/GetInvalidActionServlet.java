@@ -17,7 +17,9 @@ import java.util.List;
  */
 @WebServlet(name = "GetInvalidActionServlet", urlPatterns = {"/GetInvalidActionServlet"})
 public class GetInvalidActionServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        System.out.println("**************网页获取违规行为**************");
         List<InvalidAction> invalidActionList = new ArrayList<InvalidAction>();
         InvalidActionDaoImpl invalidActionDao = new InvalidActionDaoImpl();
         try {
@@ -27,9 +29,11 @@ public class GetInvalidActionServlet extends HttpServlet {
         }
         request.getSession().setAttribute("invalidActionList", invalidActionList);
         response.sendRedirect("invalid_action.jsp");
+        System.out.println("**************网页获取违规行为**************");
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         doPost(request, response);
     }
 }

@@ -7,6 +7,8 @@ import Util.DbUtil;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by dim on 2017/4/29.
@@ -15,6 +17,7 @@ public class UserDaoImpl implements UserDAO {
     private Connection con = DbUtil.getConn();
     private Statement sm = null;
     private ResultSet rs = null;
+    private List<User> userList = new ArrayList<User>();
 
     /**
      * @param user 用户bean
@@ -52,5 +55,20 @@ public class UserDaoImpl implements UserDAO {
     @Override
     public void deleteUser(User user) throws Exception {
 
+    }
+
+    @Override
+    public List<User> getUser() throws Exception {
+        sm = con.createStatement();
+        rs = sm.executeQuery("SELECT * FROM manage_account");
+        while (rs.next()) {
+            System.out.println(rs.getInt("idmanage_account"));
+            User user = new User(rs.getInt("idmanage_account"),
+                    rs.getString("manage_name"),
+                    "******");
+            userList.add(user);
+        }
+        DbUtil.dbClose(con, sm, rs);
+        return userList;
     }
 }

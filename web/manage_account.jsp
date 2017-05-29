@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.sql.Connection" %>
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.ResultSet" %>
@@ -18,44 +19,23 @@
 <body>
 <div class="row clearfix">
     <div class="col-md-12 column">
-        <table class="table table-bordered table-hover table-condensed" style="margin-top: 2cm;">
+        <p class="lead">管理员账户信息</p>
+        <table class="table table-bordered table-hover table-condensed" style="margin-top: 1cm;">
             <thead>
             <tr>
                 <th>序号</th>
                 <th>管理员用户名</th>
                 <th>管理员密码</th>
-                <th>操作</th>
             </tr>
             </thead>
             <tbody>
-            <%
-                Connection con = null;
-                Statement sm = null;
-                ResultSet rs = null;
-//                    PinYinUtil pyu = new PinYinUtil();
-                try {
-                    con = DbUtil.getConn();
-                    sm = con.createStatement();
-                    rs = sm.executeQuery("SELECT * FROM manage_account");
-                    while (rs.next()) {
-                        out.print("<tr>");
-                        out.print("<td>" + rs.getString("idmanage_account") + "</td>");
-                        out.print("<td>" + rs.getString("manage_name") + "</td>");
-                        out.print("<td>" + /*rs.getString("manage_info")*/"******" + "</td>");
-                        out.print("<td><a id='" + //pyu.getStringPinYin(rs.getString("exam_name")) +
-                                "' href='#modal-container-325223' role='button' class='btn' data-toggle='modal'>" +
-                                "修改</a></td>");
-                        out.print("<tr>");
-                    }
-                    con.close();
-                    sm.close();
-                    rs.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    DbUtil.dbClose(con, sm, rs);
-                }
-            %>
+            <c:forEach items="${sessionScope.userList}" var="user">
+                <tr>
+                    <td>${user.ID}</td>
+                    <td>${user.name}</td>
+                    <td>${user.password}</td>
+                </tr>
+            </c:forEach>
             </tbody>
         </table>
 

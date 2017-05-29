@@ -18,9 +18,11 @@ import java.sql.Statement;
  */
 @WebServlet(name = "baokaohaoServlet", urlPatterns = {"/baokaohaoServlet"})
 public class baokaohaoServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        System.out.println("**************Android获取报考号**************");
         String baokaodian = request.getParameter("baokaodian");
-
+        String baokaohao = "";
         Connection con = null;
         Statement sm = null;
         ResultSet rs = null;
@@ -28,15 +30,18 @@ public class baokaohaoServlet extends HttpServlet {
             con = DbUtil.getConn();
             sm = con.createStatement();
             rs = sm.executeQuery("SELECT * FROM stu_all_info ORDER BY id_stu_all_info DESC LIMIT 1");
-            if (rs.next()) {
-                String baokaohao = rs.getInt("id_stu_all_info") + 1 + "";
-                response.getWriter().print(baokaohao);
+            while (rs.next()) {
+                if (rs.getInt("stu_baokaohao") != 0) {
+                    System.out.println("最大报考号：" + rs.getInt("stu_baokaohao"));
+                    baokaohao = rs.getInt("id_stu_all_info") + 1 + "";
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-
+        response.getWriter().print(baokaohao);
+        System.out.println("**************Android获取报考号**************");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

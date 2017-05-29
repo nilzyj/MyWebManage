@@ -34,20 +34,21 @@
       <Primary>1</Primary>
     </key>
     <column id="19" parent="10" name="invalid_stu_name">
-      <Position>2</Position>
-      <DataType>varchar(45)|0</DataType>
-    </column>
-    <column id="20" parent="10" name="invalid_action">
       <Position>3</Position>
       <DataType>varchar(45)|0</DataType>
     </column>
-    <column id="21" parent="10" name="invalid_year">
+    <column id="20" parent="10" name="invalid_action">
       <Position>4</Position>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <column id="21" parent="10" name="invalid_year">
+      <Position>5</Position>
       <DataType>int(4)|0</DataType>
     </column>
     <column id="22" parent="10" name="invalid_action_if_baokao">
-      <Position>5</Position>
+      <Position>6</Position>
       <DataType>int(1)|0</DataType>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
     </column>
     <column id="23" parent="10" name="id_invalid_action_info">
       <Position>1</Position>
@@ -55,131 +56,155 @@
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <key id="24" parent="10" name="PRIMARY">
+    <column id="24" parent="10" name="invalid_stu_username">
+      <Position>2</Position>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <key id="25" parent="10" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id_invalid_action_info</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="25" parent="11" name="idmanage_account">
+    <column id="26" parent="11" name="idmanage_account">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="26" parent="11" name="manage_name">
+    <column id="27" parent="11" name="manage_name">
       <Position>2</Position>
       <DataType>varchar(45)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="27" parent="11" name="manage_password">
+    <column id="28" parent="11" name="manage_password">
       <Position>3</Position>
       <DataType>varchar(45)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="28" parent="11" name="PRIMARY">
+    <key id="29" parent="11" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>idmanage_account</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="29" parent="12" name="idstu_account">
-      <Position>1</Position>
-      <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-    </column>
     <column id="30" parent="12" name="stu_name">
-      <Position>2</Position>
+      <Position>3</Position>
       <DataType>varchar(45)|0</DataType>
       <NotNull>1</NotNull>
     </column>
     <column id="31" parent="12" name="stu_password">
-      <Position>3</Position>
+      <Position>4</Position>
       <DataType>varchar(45)|0</DataType>
       <NotNull>1</NotNull>
     </column>
     <column id="32" parent="12" name="stu_id">
-      <Position>4</Position>
-      <DataType>int(18)|0</DataType>
+      <Position>5</Position>
+      <DataType>bigint(18)|0</DataType>
       <NotNull>1</NotNull>
     </column>
     <column id="33" parent="12" name="stu_id_type">
-      <Position>5</Position>
+      <Position>6</Position>
       <DataType>varchar(45)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="34" parent="12" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>idstu_account</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <column id="35" parent="13" name="stu_name">
+    <column id="34" parent="12" name="stu_username">
       <Position>2</Position>
       <DataType>varchar(45)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="36" parent="13" name="stu_info">
-      <Position>3</Position>
-      <DataType>json|0</DataType>
-    </column>
-    <column id="37" parent="13" name="id_stu_all_info">
+    <column id="35" parent="12" name="id_stu_account">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="38" parent="13" name="stu_year">
+    <key id="36" parent="12" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id_stu_account
+stu_username</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="37" parent="13" name="stu_name">
+      <Position>3</Position>
+      <DataType>varchar(45)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="38" parent="13" name="stu_info">
       <Position>4</Position>
+      <DataType>json|0</DataType>
+    </column>
+    <column id="39" parent="13" name="id_stu_all_info">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="40" parent="13" name="stu_year">
+      <Position>5</Position>
       <DataType>int(2)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;-1&apos;</DefaultExpression>
     </column>
-    <column id="39" parent="13" name="stu_baokaodian">
-      <Position>5</Position>
-      <DataType>varchar(45)|0</DataType>
-    </column>
-    <column id="40" parent="13" name="stu_baokaohao">
+    <column id="41" parent="13" name="stu_baokaodian">
       <Position>6</Position>
-      <DataType>int(9)|0</DataType>
-    </column>
-    <column id="41" parent="13" name="stu_photo">
-      <Position>7</Position>
       <DataType>varchar(45)|0</DataType>
     </column>
-    <column id="42" parent="13" name="stu_id">
-      <Position>8</Position>
-      <DataType>int(18)|0</DataType>
+    <column id="42" parent="13" name="stu_baokaohao">
+      <Position>7</Position>
+      <DataType>int(9)|0</DataType>
+      <DefaultExpression>&apos;-1&apos;</DefaultExpression>
     </column>
-    <key id="43" parent="13" name="PRIMARY">
+    <column id="43" parent="13" name="stu_photo">
+      <Position>8</Position>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <column id="44" parent="13" name="stu_username">
+      <Position>2</Position>
+      <DataType>varchar(45)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="45" parent="13" name="stu_confirm">
+      <Position>9</Position>
+      <DataType>int(1)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="46" parent="13" name="stu_isfill">
+      <Position>10</Position>
+      <DataType>int(1)|0</DataType>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <key id="47" parent="13" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
-      <ColNames>id_stu_all_info</ColNames>
+      <ColNames>id_stu_all_info
+stu_username</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="44" parent="14" name="systemState">
+    <column id="48" parent="14" name="systemState">
       <Position>1</Position>
       <DataType>int(1)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
     </column>
-    <key id="45" parent="14" name="PRIMARY">
+    <key id="49" parent="14" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>systemState</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="46" parent="15" name="idt">
+    <column id="50" parent="15" name="idt">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="47" parent="15" name="tags">
+    <column id="51" parent="15" name="tags">
       <Position>2</Position>
       <DataType>json|0</DataType>
     </column>
-    <column id="48" parent="15" name="title">
+    <column id="52" parent="15" name="title">
       <Position>3</Position>
       <DataType>varchar(45)|0</DataType>
     </column>
-    <key id="49" parent="15" name="PRIMARY">
+    <key id="53" parent="15" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>idt</ColNames>
       <Primary>1</Primary>
