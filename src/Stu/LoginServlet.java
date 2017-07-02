@@ -39,8 +39,11 @@ public class LoginServlet extends HttpServlet {
         System.out.println("登录密码：" + password);
 
         String name = "";
+        String user_password = "";
         String stu_id = "";
         String stu_id_type = "";
+        String systemState = "";
+        String confirm = "";
 
         String state = "";
         JsonObject data = new JsonObject();
@@ -48,7 +51,6 @@ public class LoginServlet extends HttpServlet {
         Connection con = null;
         Statement sm = null;
         ResultSet rs = null;
-        String systemState = "";
         try {
             Connection con1 = DbUtil.getConn();
             Statement sm1 = con1.createStatement();
@@ -74,6 +76,7 @@ public class LoginServlet extends HttpServlet {
                 if (rs.getString("stu_password").equals(password)) {
                     //密码正确则获取相关数据
                     name = rs.getString("stu_name");
+                    user_password = rs.getString("stu_password");
                     stu_id = rs.getString("stu_id");
                     stu_id_type = rs.getString("stu_id_type");
                     rs = sm.executeQuery("SELECT * FROM stu_all_info WHERE stu_username='" + username + "'"
@@ -82,6 +85,9 @@ public class LoginServlet extends HttpServlet {
                         data.addProperty("name", name);
                         data.addProperty("stu_id", stu_id);
                         data.addProperty("stu_id_type", stu_id_type);
+                        data.addProperty("password", user_password);
+                        data.addProperty("confirm", rs.getInt("stu_confirm"));
+                        data.addProperty("baokaohao", rs.getInt("stu_baokaohao"));
                         if (rs.getInt("stu_isfill") == 0) {
                             data.addProperty("state", "1");//密码正确，未填写信息
                         } else {
@@ -89,15 +95,11 @@ public class LoginServlet extends HttpServlet {
                         }
                     }
                 } else {
-                    data.addProperty("name", "");
-                    data.addProperty("stu_id", "");
-                    data.addProperty("stu_id_type", "");
+                    nullData(data);
                     data.addProperty("state", "3");//密码错误
                 }
             } else {
-                data.addProperty("name", "");
-                data.addProperty("stu_id", "");
-                data.addProperty("stu_id_type", "");
+                nullData(data);
                 data.addProperty("state", "3");//用户不存在
             }
         } catch (Exception e) {
@@ -114,5 +116,14 @@ public class LoginServlet extends HttpServlet {
 
         response.getWriter().print(state);
         System.out.println("**************Android登录**************");
+    }
+
+    private void nullData(JsonObject data) {
+        data.addProperty("name", "");
+        data.addProperty("stu_id", "");
+        data.addProperty("stu_id_type", "");
+        data.addProperty("password", "");
+        data.addProperty("confirm", "");
+        data.addProperty("baokaohao", "");
     }
 }

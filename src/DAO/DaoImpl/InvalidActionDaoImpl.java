@@ -28,14 +28,7 @@ public class InvalidActionDaoImpl implements InvalidActionDAO {
         sm = con.createStatement();
         rs = sm.executeQuery("SELECT * FROM invalid_action_info");
         while (rs.next()) {
-            InvalidAction invalidAction = new InvalidAction(
-                    rs.getInt("id_invalid_action_info"),
-                    rs.getString("invalid_stu_name"),
-                    rs.getString("invalid_action"),
-                    rs.getInt("invalid_year"),
-                    rs.getInt("invalid_action_if_baokao")
-            );
-            invalidActionList.add(invalidAction);
+            invalidActionToList(rs);
         }
         DbUtil.dbClose(con, sm, rs);
         return invalidActionList;
@@ -46,7 +39,7 @@ public class InvalidActionDaoImpl implements InvalidActionDAO {
         //true:能报考，false:不能报考
         boolean isInvalid = true;
         sm = con.createStatement();
-        rs = sm.executeQuery("SELECT * FROM invalid_action_info WHERE invalid_stu_username='"
+        rs = sm.executeQuery("SELECT * FROM invalid_action_info WHERE stu_username='"
                 + username + "'");
         while (rs.next()) {
             if (rs.getInt("invalid_action_if_baokao") == 0) {
@@ -62,13 +55,32 @@ public class InvalidActionDaoImpl implements InvalidActionDAO {
      * @throws Exception
      */
     @Override
-    public void addInvalidAction(String username, String name, String action, int year) throws Exception {
-        sm = con.createStatement();
-        sm.executeUpdate("INSERT INTO invalid_action_info " +
-                "(invalid_stu_username, invalid_stu_name, invalid_action, invalid_year)" +
-                " VALUES ('" + username + "', '" + name + "', '" + action + "', '" + year + "')");
+    public boolean addInvalidAction(String name, String action, String id, int year, String add_name, String time) throws Exception {
+        boolean flag = false;
+        Connection con1 = DbUtil.getConn();
+        Statement sm1 = con1.createStatement();
+        ResultSet rs1 = null;
+
+        Connection  con2 = DbUtil.getConn();
+        Statement sm2 = con2.createStatement();
+        ResultSet rs2 = null;
+
+        rs1 = sm1.executeQuery("SELECT * FROM stu_account WHERE stu_name='" + name + "' AND stu_id='" + id + "'");
+        if (rs1.next()) {
+//            rs2 = sm2.executeQuery("SELECT * FROM stu_all_info WHERE stu_username='" + rs1.getString("stu_username") + "'");
+            sm = con.createStatement();
+            sm.executeUpdate("INSERT INTO invalid_action_info " +
+                    "(invalid_stu_name, stu_username, invalid_action, invalid_year, invalid_add_person, invalid_add_time)" +
+                    " VALUES ('" + name + "', '" + rs1.getString("stu_username") + "', '" + action + "', '" + year +  "', '" + add_name +  "', '" + time + "')");
+            flag = true;
+        } else {
+            flag = false;
+        }
         System.out.println("invalid_action_insert");
+        DbUtil.dbClose(con2, sm2, rs2);
+        DbUtil.dbClose(con1, sm1, rs1);
         DbUtil.dbClose(con, sm, rs);
+        return flag;
     }
 
     /**
@@ -125,13 +137,15 @@ public class InvalidActionDaoImpl implements InvalidActionDAO {
         while (rs.next()) {
             InvalidAction invalidAction = new InvalidAction(
                     rs.getInt("id_invalid_action_info"),
+                    rs.getString("stu_username"),
                     rs.getString("invalid_stu_name"),
                     rs.getString("invalid_action"),
                     rs.getInt("invalid_year"),
+                    rs.getString("invalid_add_time"),
+                    rs.getString("invalid_add_person"),
                     rs.getInt("invalid_action_if_baokao")
             );
             invalidActionList.add(invalidAction);
         }
-
     }
 }

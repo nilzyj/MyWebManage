@@ -14,5 +14,7 @@ public interface StudentDAO {
     public boolean modifyStudent() throws Exception;
     public boolean deleteStudent(int studentId) throws Exception;
     public List<Student> searchStudent(String[] strings) throws Exception;
+    public List<Student> searchStudent(String pageNum, String[] strings) throws Exception;
     public int getNumber() throws Exception;
+    public int getBaokaoNumber() throws Exception;
 }

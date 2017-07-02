@@ -2,6 +2,8 @@ package Manage;
 
 import DAO.DaoImpl.InvalidActionDaoImpl;
 import Model.InvalidAction;
+import com.google.gson.Gson;
+import com.google.gson.JsonParser;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -42,7 +44,9 @@ public class SearchInvalidActionServlet extends HttpServlet {
                 session.setAttribute("searchResult", "查询结果为空");
             } else {
                 System.out.println("list不为空：" + searchInvalidList.get(0).getName());
-
+//                String json = getJsonData(searchInvalidList);
+//                int size = new JsonParser().parse(json).getAsJsonArray().size();
+//                session.setAttribute("listSize", size / 20 + 1);
                 session.setAttribute("invalidActionList", searchInvalidList);
                 System.out.println("list.size:" + searchInvalidList.size());
                 session.removeAttribute("searchResult");
@@ -65,4 +69,10 @@ public class SearchInvalidActionServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
     }
+    public String getJsonData(List<?> list) {
+        Gson gson = new Gson();
+        String jsonstring = gson.toJson(list);
+        return jsonstring;
+    }
+
 }

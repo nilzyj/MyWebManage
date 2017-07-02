@@ -31,6 +31,8 @@ public class ManageLoginServlet extends HttpServlet {
 
 		try {
 			session.setAttribute("studentNumber", studentDao.getNumber());
+			System.out.println("num:" + studentDao.getBaokaoNumber());
+			session.setAttribute("studentBaokaoNumber", studentDao.getBaokaoNumber());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

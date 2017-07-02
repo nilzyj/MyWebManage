@@ -43,7 +43,7 @@ public class StudentInfoDaoImpl implements StudentInfoDAO {
                 studentInfoList.add(studentInfoUsername);
                 StudentInfo studentInfoName = new StudentInfo("姓名", rs.getString("stu_name"));
                 studentInfoList.add(studentInfoName);
-                for (int i = 0; i < jsonObject.size() - 1; i++) {
+                for (int i = 0; i < jsonObject.size() - 2; i++) {
                     StudentInfo studentInfo = new StudentInfo(
                             infos[i],
                             jsonObject.get(pinYinUtil.getStringPinYin(infos[i])).getAsString()
@@ -54,5 +54,17 @@ public class StudentInfoDaoImpl implements StudentInfoDAO {
         }
         DbUtil.dbClose(con, sm, rs);
         return studentInfoList;
+    }
+
+    @Override
+    public String getStudentImg(String id) throws Exception {
+        String img = "";
+        sm = con.createStatement();
+        rs = sm.executeQuery("SELECT * FROM stu_all_info WHERE id_stu_all_info='" + id + "'");
+        if (rs.next()) {
+            img = rs.getString("stu_photo");
+        }
+        DbUtil.dbClose(con, sm, rs);
+        return img;
     }
 }

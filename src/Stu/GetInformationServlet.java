@@ -1,6 +1,8 @@
 package Stu;
 
 import Util.DbUtil;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,6 +37,8 @@ public class GetInformationServlet extends HttpServlet {
         username = new String(username.getBytes("ISO8859-1"), "UTF-8");
         String state = "";
         Calendar calendar = Calendar.getInstance();
+        JsonArray leadinfInDataArray = new JsonArray();
+        JsonObject leadinfInData = new JsonObject();
         Connection con = null;
         Statement sm = null;
         ResultSet rs = null;
@@ -53,14 +57,19 @@ public class GetInformationServlet extends HttpServlet {
                 }
             } else {
                 rs = sm.executeQuery("SELECT * FROM stu_all_info WHERE stu_username ='" + username + "'"
-                        + " AND stu_year!='" + calendar.get(Calendar.YEAR)+ "'");
-                if (rs.next()) {
+                        + " AND stu_year!='" + calendar.get(Calendar.YEAR) + "'");
+                while (rs.next()) {
                     if (rs.getString("stu_info") != null) {
-                        state = rs.getString("stu_info");
-                        System.out.println("返回导入所需信息：" + state);
-                    } else {
-                        state = "无可导入报考信息";
+                        String stu_info = rs.getString("stu_info");
+                        String stu_year = rs.getString("stu_year");
+                        leadinfInData.addProperty(stu_year, stu_info);
                     }
+                }
+                leadinfInDataArray.add(leadinfInData);
+                System.out.println("导入需要的的json数据：" + leadinfInDataArray);
+                state = leadinfInDataArray.toString();
+                if (state.equals("[{}]")) {
+                    state = "无可导入报考信息";
                 }
             }
         } catch (Exception e) {
@@ -70,9 +79,7 @@ public class GetInformationServlet extends HttpServlet {
         }
 
         state = URLEncoder.encode(state, "UTF-8");
-        resp.getWriter().
-
-                print(state);
+        resp.getWriter().print(state);
         System.out.println("**************Android获取报考信息**************");
     }
 }

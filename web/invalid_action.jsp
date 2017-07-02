@@ -16,7 +16,7 @@
 <body>
 <div class="row clearfix">
     <div class="col-md-12 column">
-        <p>添加记录、修改记录、删除记录、设置是否能参加考试</p>
+        <%--<p>添加记录、修改记录、删除记录、设置是否能参加考试</p>--%>
         <p class="lead" style="margin-top: 10px;margin-bottom: 0px">考生违规信息列表</p>
         <%--考生查询--%>
         <form class="form-inline navbar-left" style="margin-top: 10px">
@@ -33,7 +33,7 @@
             <button id="searchInvalidBtn" type="button" class="btn btn-default btn-primary">查询</button>
             <button id="clearInvalidBtn" type="button" class="btn btn-default btn-primary">清除</button>
             <a href="#modal-container-invalid-add" class="btn btn-default btn-primary" data-toggle="modal">添加</a>
-            <c:out value="${sessionScope.searchResult}"/>
+            ${sessionScope.searchResult}
         </form>
 
         <table id="table" class="table table-bordered table-hover table-condensed" style="margin-top: 10px">
@@ -41,8 +41,11 @@
             <tr>
                 <th>序号</th>
                 <th>违规时间</th>
+                <th>违规者用户名</th>
                 <th>违规者姓名</th>
                 <th>违规行为</th>
+                <th>添加时间</th>
+                <th>添加记录人员</th>
                 <th>是否能参加考试</th>
                 <%--<th>操作</th>--%>
             </tr>
@@ -50,10 +53,13 @@
             <tbody id="invalid_tbody">
             <c:forEach items="${sessionScope.invalidActionList}" var="invalidAction">
                 <tr>
-                    <td><c:out value="${invalidAction.ID}"/></td>
-                    <td><c:out value="${invalidAction.year}"/></td>
-                    <td><c:out value="${invalidAction.name}"/></td>
-                    <td><c:out value="${invalidAction.invalidAction}"/></td>
+                    <td>${invalidAction.ID}</td>
+                    <td>${invalidAction.year}</td>
+                    <td>${invalidAction.username}</td>
+                    <td>${invalidAction.name}</td>
+                    <td>${invalidAction.invalidAction}</td>
+                    <td>${invalidAction.time}</td>
+                    <td>${invalidAction.person}</td>
                     <td>
                         <label class="radio-inline">
                             <input type="radio" name="optionsRadios<c:out value='${invalidAction.ID}'/>"
@@ -101,6 +107,10 @@
                                 <input type="text" class="form-control" id="invalid_action_name_add" placeholder="姓名">
                             </div>
                             <div class="form-group">
+                                <label for="invalid_action_id_add">违规考生证件号</label>
+                                <input type="text" class="form-control" id="invalid_action_id_add" placeholder="证件号">
+                            </div>
+                            <div class="form-group">
                                 <label for="invalid_action_add">违规行为</label>
                                 <input type="text" class="form-control" id="invalid_action_add" placeholder="违规行为">
                             </div>
@@ -114,41 +124,6 @@
                 </div>
             </div>
         </div>
-
-        <%--遮罩窗体，弹出的修改框--%>
-        <%--<div class="modal fade" id="modal-container-invalid-modify" role="dialog" aria-labelledby="修改违规信息"--%>
-        <%--aria-hidden="true">--%>
-        <%--<div class="modal-dialog">--%>
-        <%--<div class="modal-content">--%>
-        <%--<div class="modal-header">--%>
-        <%--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>--%>
-        <%--<h4 class="modal-title" id="invalid_title">--%>
-        <%--考生违规信息修改--%>
-        <%--</h4--%>
-        <%--</div>--%>
-        <%--<div class="modal-body">--%>
-        <%--<form method="post" action="ModifyExamInfoServlet">--%>
-        <%--<div class="form-group">--%>
-        <%--<label for="invalid_action">违规行为</label>--%>
-        <%--<input type="text" class="form-control" id="invalid_action" placeholder="违规行为">--%>
-        <%--</div>--%>
-        <%--<div class="form-group">--%>
-        <%--<label for="invalid_if_can_exam">是否能参加考试</label>--%>
-        <%--<input type="text" class="form-control" id="invalid_if_can_exam" placeholder="是/否">--%>
-        <%--</div>--%>
-        <%--&lt;%&ndash;<button type="submit" class="btn btn-default">Submit</button>&ndash;%&gt;--%>
-        <%--</form>--%>
-        <%--</div>--%>
-        <%--<div class="modal-footer">--%>
-        <%--<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>--%>
-        <%--<button id="btnModifyInvalidAction" type="button" class="btn btn-primary" >确定</button>--%>
-        <%--</div>--%>
-
-        <%--</div>--%>
-
-        <%--</div>--%>
-
-        <%--</div>--%>
     </div>
 </div>
 </div>

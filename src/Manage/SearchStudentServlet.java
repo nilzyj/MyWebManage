@@ -2,6 +2,8 @@ package Manage;
 
 import DAO.DaoImpl.StudentDaoImpl;
 import Model.Student;
+import com.google.gson.Gson;
+import com.google.gson.JsonParser;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,6 +35,8 @@ public class SearchStudentServlet extends HttpServlet {
         if (!"".equals(year + name + baokaodian + baokaohao)) {
             try {
                 System.out.println("SearchStudentServlet——searchList");
+                //查询内容放入search
+                session.setAttribute("search", new String[]{year, name, baokaodian, baokaohao});
                 searchStuList = studentDao.searchStudent(new String[]{year, name, baokaodian, baokaohao});
             } catch (Exception e) {
                 e.printStackTrace();
@@ -43,7 +47,11 @@ public class SearchStudentServlet extends HttpServlet {
                 session.setAttribute("searchResult", "查询结果为空");
             } else {
                 System.out.println("list不为空：" + searchStuList.get(0).getName());
-
+                String json = getJsonData(searchStuList);
+                int size = new JsonParser().parse(json).getAsJsonArray().size();
+                session.setAttribute("size", size);
+                session.setAttribute("listSize", size / 20 + 1);
+                System.out.println(size);
                 session.setAttribute("studentList", searchStuList);
                 System.out.println("list.size" + searchStuList.size());
                 session.removeAttribute("searchResult");
@@ -51,8 +59,14 @@ public class SearchStudentServlet extends HttpServlet {
         } else {
             System.out.println("search为空");
             session.setAttribute("searchResult", "请输入查询条件");
+            session.removeAttribute("size");
             try {
-                session.setAttribute("studentList", studentDao.getStudentInfo());
+                searchStuList = studentDao.getStudentInfo();
+                String json = getJsonData(searchStuList);
+                int size = new JsonParser().parse(json).getAsJsonArray().size();
+                session.setAttribute("listSize", size / 20 + 1);
+//                session.setAttribute("size", size);
+                session.setAttribute("studentList", searchStuList);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -63,5 +77,11 @@ public class SearchStudentServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
+    }
+
+    public String getJsonData(List<?> list) {
+        Gson gson = new Gson();
+        String jsonstring = gson.toJson(list);
+        return jsonstring;
     }
 }

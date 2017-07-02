@@ -4,7 +4,6 @@
 $(document).ready(function () {
 
     $("#logoff").click(function () {
-        alert("logoff");
         window.location.href = "login.jsp";
     });
 
@@ -114,7 +113,8 @@ $(document).ready(function () {
             type: "post",
             url: "AddInvalidActionServlet",
             data: "invalid_action_name=" + $("#invalid_action_name_add").val()
-            + "&invalid_action=" + $("#invalid_action_add").val(),
+            + "&invalid_action=" + $("#invalid_action_add").val()
+            + "&invalid_action_id=" + $("#invalid_action_id_add").val(),
             dataType: "text",
             contentType: "application/x-www-form-urlencoded; charset=utf-8",
             beforeSend: function (xhr) {
@@ -276,5 +276,7 @@ $(document).ready(function () {
 });
 
 
-
-
+var str = [{
+    "2016": "{\"name\": \"张殷杰\", \"minzu\": \"汉族\", \"hunfou\": \"否\", \"xingbie\": \"男\", \"username\": \"zyj\", \"waiguoyu\": \"英语\", \"yewukeer\": \"数据库\", \"yewukeyi\": \"网络\", \"baokaodian\": \"哈尔滨工业大学（威海）\", \"chushengdi\": \"上海市上海市崇明县\", \"biyexuexiao\": \"哈尔滨工业大学\", \"biyezhuanye\": \"计算机\", \"zhucexuehao\": \"130410229\", \"zuihouxueli\": \"本科结业\", \"baokaodanwei\": \"哈尔滨工业大学\", \"baokaoleibie\": \"非定向\", \"baokaoyuanxi\": \"计算机\", \"xianyijunren\": \"非军人\", \"zuihouxuewei\": \"学士学位\", \"baokaozhuanye\": \"计算机科学与技术\", \"gudingdianhua\": \"46944696349\", \"hukousuozaidi\": \"上海市上海市长宁区\", \"kaoshifangshi\": \"全国统考\", \"yidongdianhua\": \"49349434933\", \"zhengzhililun\": \"政治\", \"beiyongxinxier\": \"\", \"beiyongxinxiyi\": \"\", \"dianziyouxiang\": \"\", \"jiguansuozaidi\": \"天津市天津市\", \"zhengjianhaoma\": \"341122199606060037\", \"kaoshenglaiyuan\": \"普通全日制应届本科毕业生\", \"yanjiufangxiang\": \"计算机\", \"zhengzhimianmao\": \"群众\", \"zhuanxiangjihua\": \"无\", \"zhengjianleixing\": \"居民身份证\", \"biyezhengshubianhao\": \"353828535255225555\", \"dingxiangjiuyedanwei\": \"\", \"kaoshengtongxundizhi\": \"上海市上海市宝山区\", \"xuexiyugongzuojingli\": \"无无\", \"xueweizhengshubianhao\": \"\", \"jiatingzhuyaochengyuan\": \"无无\", \"kaoshengdangansuozaidi\": \"哈工大威海\", \"kaoshengzuobiqingkuang\": \"无无\", \"baokaodiansuozaishengshi\": \"山东省威海市\", \"hukousuozaidixiangxidizhi\": \"\", \"huodezuihouxuelibiyenianyue\": \"2017.7.1\", \"dingxiangjiuyedanweisuozaidi\": \"\", \"xianzaixuexihuogongzuodanwei\": \"无无\", \"qudezuihouxuelidexuexixingshi\": \"普通全日制\", \"kaoshengdangansuozaidanweidizhi\": \"上海市上海市宝山区\", \"kaoshengtongxundizhiyouzhengbianma\": \"283838\", \"kaoshengdangansuozaidanweiyouzhengbianma\": \"283926\", \"heshihediheyuanyinshouguohezhongjianglihuochufen\": \"无无\"}",
+    "2015": "{\"name\": \"张殷杰\", \"minzu\": \"汉族\", \"hunfou\": \"否\", \"xingbie\": \"男\", \"username\": \"zyj\", \"waiguoyu\": \"英语\", \"yewukeer\": \"数据库\", \"yewukeyi\": \"网络\", \"baokaodian\": \"哈尔滨工业大学（威海）\", \"chushengdi\": \"上海市上海市崇明县\", \"biyexuexiao\": \"哈尔滨工业大学\", \"biyezhuanye\": \"计算机\", \"zhucexuehao\": \"130410229\", \"zuihouxueli\": \"本科结业\", \"baokaodanwei\": \"哈尔滨工业大学\", \"baokaoleibie\": \"非定向\", \"baokaoyuanxi\": \"计算机\", \"xianyijunren\": \"非军人\", \"zuihouxuewei\": \"学士学位\", \"baokaozhuanye\": \"计算机科学与技术\", \"gudingdianhua\": \"46944696349\", \"hukousuozaidi\": \"上海市上海市长宁区\", \"kaoshifangshi\": \"全国统考\", \"yidongdianhua\": \"49349434933\", \"zhengzhililun\": \"政治\", \"beiyongxinxier\": \"\", \"beiyongxinxiyi\": \"\", \"dianziyouxiang\": \"\", \"jiguansuozaidi\": \"天津市天津市\", \"zhengjianhaoma\": \"341122199606060037\", \"kaoshenglaiyuan\": \"普通全日制应届本科毕业生\", \"yanjiufangxiang\": \"计算机\", \"zhengzhimianmao\": \"群众\", \"zhuanxiangjihua\": \"无\", \"zhengjianleixing\": \"居民身份证\", \"biyezhengshubianhao\": \"353828535255225555\", \"dingxiangjiuyedanwei\": \"\", \"kaoshengtongxundizhi\": \"上海市上海市宝山区\", \"xuexiyugongzuojingli\": \"无无\", \"xueweizhengshubianhao\": \"\", \"jiatingzhuyaochengyuan\": \"无无\", \"kaoshengdangansuozaidi\": \"哈工大威海\", \"kaoshengzuobiqingkuang\": \"无无\", \"baokaodiansuozaishengshi\": \"山东省威海市\", \"hukousuozaidixiangxidizhi\": \"\", \"huodezuihouxuelibiyenianyue\": \"2017.7.1\", \"dingxiangjiuyedanweisuozaidi\": \"\", \"xianzaixuexihuogongzuodanwei\": \"无无\", \"qudezuihouxuelidexuexixingshi\": \"普通全日制\", \"kaoshengdangansuozaidanweidizhi\": \"上海市上海市宝山区\", \"kaoshengtongxundizhiyouzhengbianma\": \"283838\", \"kaoshengdangansuozaidanweiyouzhengbianma\": \"283926\", \"heshihediheyuanyinshouguohezhongjianglihuochufen\": \"无无\"}"
+}]

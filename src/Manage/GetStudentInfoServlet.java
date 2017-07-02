@@ -34,7 +34,11 @@ public class GetStudentInfoServlet extends HttpServlet {
             if (pageNum == null) {
                 studentList = studentDao.getStudentInfo();
             } else {
-                studentList = studentDao.getStudentInfo(pageNum);
+                if (session.getAttribute("search") != null) {
+                    studentList = studentDao.searchStudent(pageNum, (String[])session.getAttribute("search"));
+                } else {
+                    studentList = studentDao.getStudentInfo(pageNum);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -45,7 +49,7 @@ public class GetStudentInfoServlet extends HttpServlet {
 //        session.setAttribute("json", json);
 //        session.setAttribute("size", size);
         if (pageNum == null) {
-            session.setAttribute("listSize", size / 8 + 1);
+            session.setAttribute("listSize", size / 20 + 1);
         }
         response.sendRedirect("manage_stu_info.jsp");
         System.out.println("**************网页获取考生信息**************");

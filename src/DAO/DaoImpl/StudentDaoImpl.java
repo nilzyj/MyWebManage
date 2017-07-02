@@ -39,10 +39,10 @@ public class StudentDaoImpl implements StudentDAO {
         System.out.println("页" + page);
         sm = con.createStatement();
         if (page == 1) {
-            rs = sm.executeQuery("SELECT * FROM stu_all_info LIMIT 6");
+            rs = sm.executeQuery("SELECT * FROM stu_all_info LIMIT 20");
         } else {
             rs = sm.executeQuery("SELECT * FROM stu_all_info LIMIT "
-                    + ((page - 1) * 6) + ", 6");
+                    + ((page - 1) * 20) + ", 20");
         }
         studentToList(rs);
         return studentList;
@@ -101,9 +101,6 @@ public class StudentDaoImpl implements StudentDAO {
         if (!"".equals(strings[0])) {
             sql = sql + " and stu_year='" + strings[0] + "'";
         }
-//        if(!"".equals(strings[1])) {
-//            sql = sql + " and stu_username'" + strings[1] + "'";
-//    }
         if (!"".equals(strings[1])) {
             sql = sql + " and stu_name like '%" + strings[1] + "%'";
         }
@@ -113,6 +110,53 @@ public class StudentDaoImpl implements StudentDAO {
         if (!"".equals(strings[3])) {
             sql = sql + " and stu_baokaohao like '%" + strings[3] + "%'";
         }
+        rs = sm.executeQuery(sql);
+        studentToList(rs);
+        return studentList;
+    }
+
+    @Override
+    public List<Student> searchStudent(String pageNum, String[] strings) throws Exception {
+        int page = Integer.parseInt(pageNum);
+        System.out.println("页" + page);
+        sm = con.createStatement();
+        String sql = "";
+        if (page == 1) {
+            sql = "SELECT * FROM stu_all_info where 1=1";
+
+            if (!"".equals(strings[0])) {
+                sql = sql + " and stu_year='" + strings[0] + "'";
+            }
+            if (!"".equals(strings[1])) {
+                sql = sql + " and stu_name like '%" + strings[1] + "%'";
+            }
+            if (!"".equals(strings[2])) {
+                sql = sql + " and stu_baokaodian like '%" + strings[2] + "%'";
+            }
+            if (!"".equals(strings[3])) {
+                sql = sql + " and stu_baokaohao like '%" + strings[3] + "%'";
+            }
+            sql = sql + " LIMIT 20";
+        } else {
+            sql = "SELECT * FROM stu_all_info where 1=1";
+
+            if (!"".equals(strings[0])) {
+                sql = sql + " and stu_year='" + strings[0] + "'";
+            }
+            if (!"".equals(strings[1])) {
+                sql = sql + " and stu_name like '%" + strings[1] + "%'";
+            }
+            if (!"".equals(strings[2])) {
+                sql = sql + " and stu_baokaodian like '%" + strings[2] + "%'";
+            }
+            if (!"".equals(strings[3])) {
+                sql = sql + " and stu_baokaohao like '%" + strings[3] + "%'";
+            }
+            sql = sql + " LIMIT " + ((page - 1) * 20) + ", 20";
+        }
+
+        System.out.println("searchStudent——strings:" + strings[0] + strings[1]);
+        System.out.println("sql:" + sql);
         rs = sm.executeQuery(sql);
         studentToList(rs);
         return studentList;
@@ -136,6 +180,19 @@ public class StudentDaoImpl implements StudentDAO {
         return number;
     }
 
+    @Override
+    public int getBaokaoNumber() throws Exception {
+        int number = 0;
+        Calendar calendar = Calendar.getInstance();
+        sm = con.createStatement();
+        rs = sm.executeQuery("SELECT count(*) count FROM stu_all_info WHERE stu_year='"
+                + calendar.get(Calendar.YEAR) + "' AND stu_isfill=1");
+        if (rs.next()) {
+            number = rs.getInt("count");
+        }
+        return number;
+    }
+
     /**
      * 将rs中符合条件的集合放入list
      *
@@ -143,6 +200,7 @@ public class StudentDaoImpl implements StudentDAO {
      * @return 符合条件的数据
      * @throws Exception sqlexception
      */
+
     private void studentToList(ResultSet rs) throws Exception {
         while (rs.next()) {
 
@@ -161,7 +219,6 @@ public class StudentDaoImpl implements StudentDAO {
                 if (stu_baokaodian == null)
                     stu_baokaodian = "未报考";
                 int stu_baokaohao_num = rs.getInt("stu_baokaohao");
-                System.out.println(stu_baokaohao_num);
                 String stu_baokaohao;
                 if (stu_baokaohao_num == -1) {
                     stu_baokaohao = "未报考";
@@ -185,4 +242,5 @@ public class StudentDaoImpl implements StudentDAO {
         DbUtil.dbClose(con, sm, rs);
         System.out.println("studentToList--放入list");
     }
+
 }

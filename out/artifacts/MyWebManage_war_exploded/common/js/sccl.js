@@ -434,16 +434,16 @@ $(function () {
                 "isHeader": "0",
                 "childMenus": ""
             },
-            {
-                "id": "4",
-                "name": "认证信息",
-                "parentId": "1",
-                "url": "manage_confirm.jsp",
-                "icon": "&#xe602;",
-                "order": "1",
-                "isHeader": "0",
-                "childMenus": ""
-            },
+            // {
+            //     "id": "4",
+            //     "name": "认证信息",
+            //     "parentId": "1",
+            //     "url": "manage_confirm.jsp",
+            //     "icon": "&#xe602;",
+            //     "order": "1",
+            //     "isHeader": "0",
+            //     "childMenus": ""
+            // },
             {
                 "id": "5",
                 "name": "违规管理",

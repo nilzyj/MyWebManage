@@ -24,17 +24,17 @@ public class UpdateJsonDataServlet extends HttpServlet {
         str = new String(str.getBytes("ISO8859-1"), "UTF-8");
 
         JsonObject jsonObject = null;
-        String name = "";
+        String username = "";
         String jsonKey = "";
         String jsonValue = "";
         if (!str.isEmpty()) {
             jsonObject = new JsonParser().parse(str).getAsJsonObject();
-            name = jsonObject.get("name").getAsString();
+            username = jsonObject.get("username").getAsString();
             jsonKey = jsonObject.get("infoName").getAsString();
             jsonValue = jsonObject.get("info").getAsString();
         }
         System.out.print(str);
-        System.out.print(name);
+        System.out.print(username);
 
         Connection con = null;
         Statement sm = null;
@@ -44,7 +44,7 @@ public class UpdateJsonDataServlet extends HttpServlet {
             sm = con.createStatement();
             sm.executeUpdate("UPDATE stu_all_info SET stu_info = " +
                     "JSON_REPLACE(stu_info, '$." + jsonKey + "','" + jsonValue + "')" +
-                    "WHERE stu_name = '" + name + "'");
+                    "WHERE stu_username = '" + username + "'");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

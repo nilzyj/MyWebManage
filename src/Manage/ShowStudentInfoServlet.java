@@ -24,15 +24,21 @@ public class ShowStudentInfoServlet extends HttpServlet {
         String id = request.getParameter("student_info_id");
         System.out.println("查看考生id：" + id);
         List<StudentInfo> studentInfoList = new ArrayList<StudentInfo>();
+        String img = "";
         StudentInfoDaoImpl studentInfoDao = new StudentInfoDaoImpl();
         try {
             studentInfoList = studentInfoDao.getStudentInfo(id);
+            studentInfoDao = new StudentInfoDaoImpl();
+            img = studentInfoDao.getStudentImg(id);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         HttpSession session = request.getSession();
         session.setAttribute("studentInfoList", studentInfoList);
+        if (img != null) {
+            session.setAttribute("img", "http://localhost:8080/image/" + img + ".jpg");
+        }
         response.sendRedirect("stu_info.jsp");
         System.out.println("**************网页显示考生信息**************");
     }

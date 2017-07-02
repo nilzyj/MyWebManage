@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html class="js no-touch" style="overflow: hidden;" lang="zxx">
 <head>
-    <title>研究生考试认证系统管理</title>
+    <title>研究生考试报名系统管理</title>
     <!-- custom-theme -->
     <%--width：可视区域的宽度--%>
     <%--intial-scale:页面首次被显示是可视区域的缩放级别，取值1.0则页面按实际尺寸显示，无任何缩放--%>
@@ -32,7 +32,7 @@
             <div class="registration admin_agile">
                 <%--中间的方形--%>
                 <div class="signin-form profile admin">
-                    <h3>研究生考试认证系统管理</h3>
+                    <h3>研究生考试报名系统管理</h3>
                     <h2>登录</h2>
                     <div class="login-form">
                         <form action="ManageLoginServlet" method="post">

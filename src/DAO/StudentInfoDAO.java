@@ -9,4 +9,5 @@ import java.util.List;
  */
 public interface StudentInfoDAO {
     public List<StudentInfo> getStudentInfo(String id) throws Exception;
+    public String getStudentImg(String id) throws Exception;
 }

@@ -18,6 +18,14 @@
     <div class="row clearfix">
         <div style="margin-left: 1cm; margin-top: 0.5cm">
             <table class="table table-condense table-bordered" style="width: 500px;">
+                <tr>
+                    <th>个人照片</th>
+                    <td>
+                        <c:if test="${not empty sessionScope.img}">
+                            <img class="img-responsive" style="width: 70px; height: 70px" src="${sessionScope.img}">
+                        </c:if>
+                    </td>
+                </tr>
                 <c:forEach items="${sessionScope.studentInfoList}" var="studentInfo">
                     <tr>
                         <th><c:out value="${studentInfo.infoName}"/></th>
